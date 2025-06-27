@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoboy - Future of Gadget Trading</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/v4-shims.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rosario:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+
+</head>
+<body>
+  <!-- Ultra Modern Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <i class="fas fa-glasses"></i>
+                Autoboy
+            </a>
+            
+            <!-- Navigation Center (Desktop) -->
+            <div class="nav-center">
+                <a href="#" class="become-seller-btn">
+                    <i class="fas fa-store"></i>
+                    <span>Become a seller</span>
+                </a>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Search products, brands and categories">
+                        <!-- <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                         -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Right -->
+            <div class="nav-right">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+                
+          
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+      
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-search search-container">
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search products...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-nav-links">
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-store"></i>
+                Become a seller
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                Account
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-heart"></i>
+                Wishlist
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+
+ <!-- Hero Section -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+<section class="hero-section">
+        <!-- Loading Spinner -->
+        <div class="hero-loading" id="heroLoading">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Background Container -->
+        <div class="background-container">
+            <div class="background-layer">
+                <div class="background-image bg-1" data-index="0"></div>
+                <div class="background-image bg-2" data-index="1"></div>
+                <div class="background-image bg-3" data-index="2"></div>
+                <div class="background-image bg-4" data-index="3"></div>
+            </div>
+            <div class="gradient-overlay"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Floating Bubbles -->
+        <div class="floating-bubbles" id="bubblesContainer"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2 class="hero-subtitle">Welcome to the Future</h2>
+                    <h1 class="hero-title">
+                        Discover the Future of
+                        <span class="gradient-text">Gadget on Autoboy</span>
+                    </h1>
+                    <p class="hero-description">
+                        Explore our curated selection of the latest gadgets and unbeatable deals. Join a community where buying, selling, and swapping electronics is seamless and secure.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                        <a href="#" class="btn btn-secondary">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+ <!-- Categories Section -->
+    <section class="categories-section">
+        <!-- Animated Green Background -->
+        <div class="animated-bg-container">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Section Content -->
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">
+                    <i class="fas fa-sparkles"></i>
+                    Discover More
+                </span>
+                <h2 class="section-title">
+                    <span class="title-line">Explore Our Top Categories for the</span>
+                    <span class="title-line highlight">Latest Gadgets and Electronics</span>
+                </h2>
+                <p class="section-subtitle">
+                    Curated collections of premium tech, handpicked for the modern digital lifestyle
+                </p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="categories-grid">
+                <!-- Category Card 1 -->
+                <div class="category-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="card-title">Phones & Tablets</h3>
+                        <p class="card-description">
+                            Discover the best phones, tablets, laptops, and accessories
+                        </p>
+                        <p class="card-detail">
+                            Find the perfect device that suits your needs and lifestyle.
+                        </p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <span class="stat-number">2.5K+</span>
+                                <span class="stat-label">Products</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">150+</span>
+                                <span class="stat-label">Brands</span>
+                            </div>
+                        </div>
+                        <a href="#" class="shop-btn">
+                            <span>Shop Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Category Card 2 -->
+                <div class="category-card featured" data-aos="fade-up" data-aos-delay="200">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <i class="fas fa-tablet-alt"></i>
+                        </div>
+                        <h3 class="card-title">Tablets & Accessories</h3>
+                        <p class="card-description">
+                            Unlock amazing deals on the latest tablets and accessories
+                        </p>
+                        <p class="card-detail">
+                            Upgrade your tech with our wide selection of tablets and accessories.
+                        </p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <span class="stat-number">1.8K+</span>
+                                <span class="stat-label">Products</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">80+</span>
+                                <span class="stat-label">Brands</span>
+                            </div>
+                        </div>
+                        <a href="#" class="shop-btn primary">
+                            <span>Shop Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Category Card 3 -->
+                <div class="category-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3 class="card-title">Laptops & Gaming</h3>
+                        <p class="card-description">
+                            Get the best value with our laptops, consoles and electronics range
+                        </p>
+                        <p class="card-detail">
+                            Explore our laptops and consoles designed for performance, style, and affordability.
+                        </p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <span class="stat-number">3.2K+</span>
+                                <span class="stat-label">Products</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">200+</span>
+                                <span class="stat-label">Brands</span>
+                            </div>
+                        </div>
+                        <a href="#" class="shop-btn">
+                            <span>Shop Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section" data-aos="fade-up" data-aos-delay="400">
+                <div class="cta-content">
+                    <div class="cta-left">
+                        <h3 class="cta-title">
+                            <span class="text-gradient">Join Us for a Personalised</span>
+                            <span class="text-gradient">Experience</span>
+                        </h3>
+                        <p class="cta-description">
+                            Register or log in to unlock a tailored shopping experience and exclusive offers just for you.
+                        </p>
+                        <div class="cta-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Exclusive member discounts</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Early access to new products</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Personalized recommendations</span>
+                            </div>
+                        </div>
+                        <div class="cta-buttons">
+                            <a href="#" class="cta-btn primary">
+                                <span>Sign Up</span>
+                                <i class="fas fa-user-plus"></i>
+                            </a>
+                            <a href="#" class="cta-btn secondary">
+                                <span>Log In</span>
+                                <i class="fas fa-sign-in-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="cta-right">
+                        <div class="phone-showcase">
+                            <img src="data:image/svg+xml,%3Csvg width='400' height='500' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='500' fill='transparent'/%3E%3C/svg%3E" alt="Phone showcase" class="phone-img">
+                            <div class="phone-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Trending Collection Section -->
+    <section class="ab-trending-section">
+        <!-- Animated Background -->
+        <div class="ab-bg-animation">
+            <div class="ab-floating-orb ab-orb-1"></div>
+            <div class="ab-floating-orb ab-orb-2"></div>
+            <div class="ab-floating-orb ab-orb-3"></div>
+        </div>
+
+        <div class="ab-container">
+            <!-- Section Header -->
+            <div class="ab-section-header ab-reveal">
+                <h2 class="ab-section-title">Trending Collection</h2>
+                <a href="#" class="ab-more-btn">
+                    <span>Explore More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="ab-products-grid">
+                <!-- Product Card 1 -->
+                <div class="ab-product-card">
+                    <img src="https://images.unsplash.com/photo-1664114780064-41d0dd873e92?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjZ8fGlwaG9uZSUyMDE2JTIwcHJvJTIwbWF4fGVufDB8fDB8fHww" alt="iPhone 16 Pro Max" class="ab-product-image">
+                    <div class="ab-status-badge trending">Trending</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">iPhone 16 Pro Max</h3>
+                        <p class="ab-product-description">The ultimate iPhone experience with titanium design and advanced pro camera system.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="ab-product-card">
+                    <img src="https://cdn.cosmos.so/424ab841-a146-477d-9db4-a3150b28a9c2?format=jpeg" alt="iPhone 16" class="ab-product-image">
+                    <div class="ab-status-badge new">New</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">iPhone 16</h3>
+                        <p class="ab-product-description">Powerful A18 chip with incredible performance and all-day battery life.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="ab-product-card">
+                    <img src="https://cdn.cosmos.so/f1c10496-1c97-4328-b4c9-51e3ea29d77b?format=jpeg" alt="iPhone 16 Pro" class="ab-product-image">
+                    <div class="ab-status-badge featured">Featured</div>
+                    <button class="ab-favorite-btn active">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">iPhone 16 Pro</h3>
+                        <p class="ab-product-description">Pro performance with titanium build and advanced computational photography.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="ab-product-card">
+                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&h=600&fit=crop&auto=format" alt="Samsung Galaxy Fold" class="ab-product-image">
+                    <div class="ab-status-badge trending">Hot</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">Galaxy S21</h3>
+                        <p class="ab-product-description">Revolutionary foldable design that transforms your mobile experience.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="ab-product-card">
+                    <img src="https://www.pointekonline.com/wp-content/uploads/2025/01/sms938_galaxys25ultra_front_titaniumblack_5506351.png" alt="Samsung S25 Ultra" class="ab-product-image">
+                    <div class="ab-status-badge new">Latest</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">Galaxy S25 Ultra</h3>
+                        <p class="ab-product-description">Ultimate productivity powerhouse with S Pen and professional cameras.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="ab-product-card">
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=600&fit=crop&auto=format" alt="MacBook Pro" class="ab-product-image">
+                    <div class="ab-status-badge featured">Pro</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">MacBook Pro 2024</h3>
+                        <p class="ab-product-description">Revolutionary M4 chip delivers incredible performance for professionals.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 7 -->
+                <div class="ab-product-card">
+                    <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&h=600&fit=crop&auto=format" alt="Gaming PC" class="ab-product-image">
+                    <div class="ab-status-badge trending">Beast</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">Gaming PC Ultra</h3>
+                        <p class="ab-product-description">Ultimate gaming machine with cutting-edge graphics and performance.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 8 -->
+                <div class="ab-product-card">
+                    <img src="https://images.unsplash.com/photo-1661340272675-f6829791246e?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="iPad Pro" class="ab-product-image">
+                    <div class="ab-status-badge new">Creative</div>
+                    <button class="ab-favorite-btn">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="ab-product-overlay">
+                        <h3 class="ab-product-name">iPad Pro 2024</h3>
+                        <p class="ab-product-description">Creative powerhouse with M4 chip and stunning Liquid Retina display.</p>
+                        <button class="ab-explore-btn">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+ <!-- Footer -->
+    <footer class="footer">
+        <!-- Background Layers -->
+        <div class="footer-bg"></div>
+        <div class="footer-gradient"></div>
+        
+        <!-- Floating Particles -->
+        <div class="footer-particles" id="particles"></div>
+
+        <!-- Glass Container -->
+        <div class="footer-glass">
+            <!-- Top Navigation -->
+            <nav class="footer-nav">
+                <div class="footer-nav-content">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-glasses"></i>
+                        <div class="footer-logo-text">
+                            <span>Autoboy</span>
+                            <span class="footer-logo-subtitle">Expressing</span>
+                        </div>
+                    </a>
+                    
+                    <div class="footer-nav-links">
+                        <a href="#" class="footer-nav-link">Buy Now</a>
+                        <a href="#" class="footer-nav-link">Sell Now</a>
+                        <a href="#" class="footer-nav-link">Swap Gadgets</a>
+                    </div>
+                    
+                    <div class="footer-auth">
+                        <a href="#" class="footer-btn footer-btn-outline">Join</a>
+                        <a href="#" class="footer-btn footer-btn-primary">Login</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Footer Content -->
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <!-- Explore Our Range -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-store"></i> Explore Our Range</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span><strong>Latest Phones</strong><br>
+                                <small>Discover the newest smartphones available today.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headphones"></i>
+                                <span><strong>Top Accessories</strong><br>
+                                <small>Find the perfect accessories for your gadgets.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-tags"></i>
+                                <span><strong>Trending Deals</strong><br>
+                                <small>Unbeatable prices on selected electronic devices.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headset"></i>
+                                <span><strong>Customer Support</strong><br>
+                                <small>We're here to help you with any questions.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Us -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span><strong>FAQs</strong><br>
+                                Find answers to common customer queries.</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-at"></i>
+                                <span><a href="mailto:Autoboy@ng.com" class="contact-link">Autoboy@ng.com</a><br>
+                                Reach out for further assistance or inquiries.</span>
+                            </div>
+                            <a href="#" class="live-chat-btn">
+                                <i class="fas fa-comments"></i>
+                                Live Chat Support
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Engagement -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-users"></i> Community Engagement</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-star"></i>
+                                <span><strong>User Reviews</strong><br>
+                                <small>Read what others say about their purchases.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-link"></i> Quick Links</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">Help Centre</a>
+                            <a href="#" class="footer-link">Terms of Use</a>
+                            <a href="#" class="footer-link">Return Policy</a>
+                            <a href="#" class="footer-link">Shipping Info</a>
+                            <a href="#" class="footer-link">Feedback</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="newsletter-section">
+                        <h3 class="newsletter-title">Stay Connected</h3>
+                        <p class="newsletter-subtitle">Get the latest deals and updates delivered to your inbox</p>
+                        <form class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        @2025 AutoBoy - All rights reserved
+                    </div>
+                    
+                    <div class="footer-legal">
+                        <a href="#" class="footer-legal-link">Terms and condition</a>
+                        <a href="#" class="footer-legal-link">Privacy policy</a>
+                        <a href="#" class="footer-legal-link">Cookie policy</a>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-link" data-tooltip="Follow us on X">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Follow us on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Like us on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            duration: 1000
+        });
+
+
+
+        
+    </script>
+</body>
+</html>
