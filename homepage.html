@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoboy - Future of Gadget Trading</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/v4-shims.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rosario:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+
+</head>
+<body>
+
+
+
+    <!-- Ultra Modern Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <img src="static/images/logo/autoboy_logo2.png" alt="Autoboy Logo">
+            </a>
+            
+            <!-- Navigation Center (Desktop) -->
+            <div class="nav-center">
+                <a href="#" class="become-seller-btn">
+                    <i class="fas fa-store"></i>
+                    <span>Become a seller</span>
+                </a>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Search products, brands and categories">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Right -->
+            <div class="nav-right">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+                
+                   <a href="#" class="nav-link">
+                    <i class="fas fa-headphones"></i>
+                    <span>Help</span>
+                </a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+        
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-search search-container">
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search products...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-nav-links">
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-store"></i>
+                Become a seller
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                Account
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-heart"></i>
+                Wishlist
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+
+ <!-- Hero Section -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+<section class="hero-section">
+        <!-- Loading Spinner -->
+        <div class="hero-loading" id="heroLoading">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Background Container -->
+        <div class="background-container">
+            <div class="background-layer">
+                <div class="background-image bg-1" data-index="0"></div>
+                <div class="background-image bg-2" data-index="1"></div>
+                <div class="background-image bg-3" data-index="2"></div>
+                <div class="background-image bg-4" data-index="3"></div>
+            </div>
+            <div class="gradient-overlay"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Floating Bubbles -->
+        <div class="floating-bubbles" id="bubblesContainer"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2 class="hero-subtitle">Welcome to the Future</h2>
+                    <h1 class="hero-title">
+                       Precision
+                        <span class="gradient-text">Power Perfection.</span>
+                    </h1>
+                    <p class="hero-description">
+                       Experience unmatched performance, AI-powered photography, and a design that redefines innovation.
+                        Get yours today and stay ahead of the curve.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+        <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg class="progress-ring" viewBox="0 0 56 56">
+            <circle class="progress-ring__circle" cx="28" cy="28" r="26"></circle>
+        </svg>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true
+        });
+
+
+
+
+            
+        // Back to Top Button Functionality
+        const backToTopBtn = document.getElementById('backToTop');
+        let isVisible = false;
+        let pulseTimeout;
+
+        // Show/hide button based on scroll position
+        function handleScroll() {
+            const scrolled = window.pageYOffset;
+            const shouldShow = scrolled > 300;
+
+            if (shouldShow && !isVisible) {
+                backToTopBtn.classList.add('visible');
+                isVisible = true;
+                
+                // Add pulse effect after 5 seconds
+                pulseTimeout = setTimeout(() => {
+                    backToTopBtn.classList.add('pulse');
+                }, 5000);
+                
+            } else if (!shouldShow && isVisible) {
+                backToTopBtn.classList.remove('visible', 'pulse');
+                isVisible = false;
+                clearTimeout(pulseTimeout);
+            }
+        }
+
+        // Smooth scroll to top
+        function scrollToTop() {
+            // Remove pulse effect when clicked
+            backToTopBtn.classList.remove('pulse');
+            clearTimeout(pulseTimeout);
+            
+            // Smooth scroll animation
+            const scrollStep = -window.scrollY / (500 / 15);
+            
+            function smoothScroll() {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                    requestAnimationFrame(smoothScroll);
+                }
+            }
+            
+            smoothScroll();
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll);
+        backToTopBtn.addEventListener('click', (e) => {
+            createRipple(e);
+            scrollToTop();
+        });
+
+        // Keyboard accessibility
+        backToTopBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                scrollToTop();
+            }
+        });
+
+        // Initialize
+        handleScroll();
+
+        console.log('🚀 Ultra Modern Back to Top Button initialized!');
+        console.log('✨ Features: Glassmorphism, Gradient Borders, Smooth Animations');
+        console.log('📱 Fully responsive with accessibility support');
+
+
+          function initializeTypingEffect() {
+            const placeholderTexts = [
+                'Search products, brands and categories',
+                'Find the best gadgets...',
+                'Discover amazing deals...',
+                'Search for smartphones, laptops...',
+                'Explore iPhone, Samsung, MacBook...',
+                'Browse gaming PCs, tablets...'
+            ];
+
+            // Get ALL search inputs
+            const searchInputs = document.querySelectorAll('.search-input');
+            
+            // Create typing effect for each input
+            searchInputs.forEach((searchInput, index) => {
+                let textIndex = index % placeholderTexts.length; // Start with different text for variety
+                let charIndex = 0;
+                let isDeleting = false;
+                let isTyping = true;
+                let typingTimeout;
+                
+                // Store original placeholder
+                const originalPlaceholder = searchInput.placeholder;
+                
+                function typeEffect() {
+                    // Don't type if user is actively using the input
+                    if (!isTyping) return;
+                    
+                    const currentText = placeholderTexts[textIndex];
+                    
+                    if (isDeleting) {
+                        searchInput.placeholder = currentText.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        searchInput.placeholder = currentText.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+                    
+                    if (!isDeleting && charIndex === currentText.length) {
+                        // Pause before starting to delete
+                        setTimeout(() => {
+                            if (isTyping) {
+                                isDeleting = true;
+                                typeEffect();
+                            }
+                        }, 2000);
+                        return;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % placeholderTexts.length;
+                    }
+                    
+                    const speed = isDeleting ? 50 : 100;
+                    typingTimeout = setTimeout(typeEffect, speed);
+                }
+                
+                // Stop typing when user focuses on input
+                searchInput.addEventListener('focus', () => {
+                    isTyping = false;
+                    clearTimeout(typingTimeout);
+                    if (searchInput.value === '') {
+                        searchInput.placeholder = originalPlaceholder;
+                    }
+                });
+                
+                // Resume typing when user leaves input empty
+                searchInput.addEventListener('blur', () => {
+                    if (searchInput.value === '') {
+                        setTimeout(() => {
+                            isTyping = true;
+                            charIndex = 0;
+                            isDeleting = false;
+                            typeEffect();
+                        }, 1000);
+                    }
+                });
+                
+                // Stop typing if user starts typing
+                searchInput.addEventListener('input', () => {
+                    if (searchInput.value !== '') {
+                        isTyping = false;
+                        clearTimeout(typingTimeout);
+                    } else {
+                        // User cleared the input, resume typing after a delay
+                        setTimeout(() => {
+                            if (searchInput.value === '' && document.activeElement !== searchInput) {
+                                isTyping = true;
+                                charIndex = 0;
+                                isDeleting = false;
+                                typeEffect();
+                            }
+                        }, 500);
+                    }
+                });
+                
+                // Start typing effect with a delay (staggered for multiple inputs)
+                setTimeout(() => {
+                    typeEffect();
+                }, 1000 + (index * 500));
+            });
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure all elements are rendered
+            setTimeout(initializeTypingEffect, 500);
+        });
+
+        // Also initialize immediately if DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeTypingEffect);
+        } else {
+            setTimeout(initializeTypingEffect, 500);
+        }
+
+        console.log('🔧 Fixed Search Placeholder Typing Effect');
+        console.log('✅ Now works for all search inputs');
+        console.log('✅ Handles user interaction properly');
+        console.log('✅ No more conflicts between multiple inputs');
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

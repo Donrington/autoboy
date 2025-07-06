@@ -635,18 +635,7 @@
             };
         }
 
-        // Parallax effect for background elements
-        const parallaxElements = document.querySelectorAll('.demo-section');
-        
-        const handleParallax = debounce(() => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            parallaxElements.forEach((element, index) => {
-                const yPos = -(scrolled * (0.1 + index * 0.05));
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        }, 10);
+    
 
         window.addEventListener('scroll', handleParallax);
 
@@ -659,69 +648,6 @@
             });
         }
 
-        // Initialize all animations and effects
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add initial animations
-            setTimeout(() => {
-                document.querySelectorAll('.fade-in').forEach((el, index) => {
-                    setTimeout(() => {
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }, 100);
-
-            // Add pulse effect to important buttons
-            const importantButtons = document.querySelectorAll('.become-seller-btn, .search-btn');
-            importantButtons.forEach(button => {
-                button.classList.add('pulse');
-                
-                // Remove pulse after user interaction
-                button.addEventListener('click', () => {
-                    button.classList.remove('pulse');
-                });
-            });
-
-            // Add typing effect to search placeholder (demo)
-            const searchInput = document.querySelector('.search-input');
-            const placeholderTexts = [
-                'Search products, brands and categories',
-                'Find the best gadgets...',
-                'Discover amazing deals...',
-                'Search for smartphones, laptops...'
-            ];
-            
-            let textIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            
-            function typeEffect() {
-                const currentText = placeholderTexts[textIndex];
-                
-                if (isDeleting) {
-                    searchInput.placeholder = currentText.substring(0, charIndex - 1);
-                    charIndex--;
-                } else {
-                    searchInput.placeholder = currentText.substring(0, charIndex + 1);
-                    charIndex++;
-                }
-                
-                if (!isDeleting && charIndex === currentText.length) {
-                    setTimeout(() => {
-                        isDeleting = true;
-                    }, 2000);
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    textIndex = (textIndex + 1) % placeholderTexts.length;
-                }
-                
-                const speed = isDeleting ? 50 : 100;
-                setTimeout(typeEffect, speed);
-            }
-            
-            // Start typing effect after initial delay
-            setTimeout(typeEffect, 3000);
-        });
 
         // Add resize handler for responsive adjustments
         window.addEventListener('resize', debounce(() => {
@@ -1446,3 +1372,6 @@
                 footerCursor.style.opacity = '0';
             });
         
+
+
+
