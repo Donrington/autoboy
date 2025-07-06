@@ -1198,9 +1198,9 @@
 
             .theme-toggle {
                 right: 1rem;
-                    
-            }width: auto;
-                    height: auto;
+                    width: 50%;
+                    height: 50%;
+            }
 
             .theme-toggle i {
             font-size: 0.9rem;
