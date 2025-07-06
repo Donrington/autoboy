@@ -727,7 +727,8 @@
             });
         }
 
-        // Card hover effects
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap !== 'undefined') {
         const cards = document.querySelectorAll('.category-card');
         
         cards.forEach(card => {
@@ -776,6 +777,11 @@
                 });
             });
         });
+    } else {
+        // Fallback CSS animations
+        console.error('GSAP not loaded, using CSS fallback');
+    }
+});
 
         // Parallax effect for section title
         document.addEventListener('mousemove', (e) => {
