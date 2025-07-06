@@ -457,7 +457,7 @@
             }
 
             .btn {
-                width: 60%;
+                width: 100%;
                 text-align: center;
                 padding: 1rem 2.5rem;
             }
@@ -2607,9 +2607,11 @@ body.dark-mode ::-webkit-scrollbar-track {
             }
 
              .ab-more-btn{
-           display: none;
-             }
+           displa
+           
         }
+
+        .btn-primary
 
         /* Scroll Reveal Animation */
         .reveal {
