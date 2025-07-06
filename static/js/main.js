@@ -727,61 +727,6 @@
             });
         }
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap !== 'undefined') {
-        const cards = document.querySelectorAll('.category-card');
-        
-        cards.forEach(card => {
-            const glow = card.querySelector('.card-glow');
-            const iconBg = card.querySelector('.icon-bg');
-            
-            card.addEventListener('mouseenter', () => {
-                gsap.to(glow, {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.3
-                });
-                
-                gsap.to(iconBg, {
-                    scale: 1.2,
-                    rotation: 180,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                });
-                
-                gsap.to(card, {
-                    y: -10,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                gsap.to(glow, {
-                    opacity: 0,
-                    scale: 0.8,
-                    duration: 0.3
-                });
-                
-                gsap.to(iconBg, {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                });
-                
-                gsap.to(card, {
-                    y: 0,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        });
-    } else {
-        // Fallback CSS animations
-        console.error('GSAP not loaded, using CSS fallback');
-    }
-});
 
         // Parallax effect for section title
         document.addEventListener('mousemove', (e) => {
