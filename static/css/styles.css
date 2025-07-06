@@ -1198,8 +1198,9 @@
 
             .theme-toggle {
                 right: 1rem;
-                    width: 50%;
-                    height: 50%;
+                width: 40px;
+                height: 40px;
+                
             }
 
             .theme-toggle i {
