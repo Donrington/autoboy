@@ -1198,6 +1198,7 @@
 
             .theme-toggle {
                 right: 1rem;
+                    width: 25px;
             }
         }
 
