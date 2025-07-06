@@ -2727,26 +2727,25 @@ body.dark-mode ::-webkit-scrollbar-track {
         }
 
         /* Logo */
+              /* Logo */
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
             text-decoration: none;
-            color: white;
-            font-family: 'Syne', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 800;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .footer-logo:hover {
-            transform: translateY(-2px);
-            filter: drop-shadow(0 5px 15px rgba(34, 197, 94, 0.5));
+        .footer-logo img {
+            height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.2));
         }
 
-        .footer-logo i {
-            font-size: 2rem;
-            color: var(--primary-green);
+        .footer-logo:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.4));
         }
 
         .footer-logo-text {
