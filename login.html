@@ -698,127 +698,378 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <script>
-        // Create particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 15}s`;
-            particle.style.animationDuration = `${15 + Math.random() * 10}s`;
-            particlesContainer.appendChild(particle);
-        }
+       // Create particles
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.animationDelay = `${Math.random() * 15}s`;
+    particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+    particlesContainer.appendChild(particle);
+}
 
-        // Password toggle
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling.querySelector('i');
+// Password toggle
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = input.nextElementSibling.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Toggle between login and signup
+function toggleForms() {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    if (loginForm.classList.contains('hidden')) {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.remove('active');
+    } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.add('active');
+    }
+}
+
+// Handle login
+function handleLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    btn.classList.add('loading');
+    
+    // Simulate API call
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        alert('Login successful!');
+    }, 2000);
+}
+
+// Handle signup
+function handleSignup(e) {
+    e.preventDefault();
+    const btn = document.getElementById('signupBtn');
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+    }
+    
+    btn.classList.add('loading');
+    
+    // Simulate API call
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        alert('Account created successfully!');
+        toggleForms();
+    }, 2000);
+}
+
+// Handle Google Auth
+function handleGoogleAuth() {
+    alert('Google authentication would be implemented here');
+}
+
+// GSAP Animations for orbs
+gsap.to('.orb-1', {
+    x: 100,
+    y: -50,
+    duration: 20,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+});
+
+gsap.to('.orb-2', {
+    x: -100,
+    y: 100,
+    duration: 25,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+});
+
+gsap.to('.orb-3', {
+    scale: 1.2,
+    duration: 15,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+});
+
+// Input focus animations
+const inputs = document.querySelectorAll('.form-input');
+inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        gsap.to(input, {
+            scale: 1.02,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+    
+    input.addEventListener('blur', () => {
+        gsap.to(input, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Button hover animations
+const buttons = document.querySelectorAll('.submit-btn, .social-btn');
+buttons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+    
+    button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Parallax effect on mouse move
+document.addEventListener('mousemove', (e) => {
+    const { clientX, clientY } = e;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    
+    const moveX = (clientX - centerX) / 50;
+    const moveY = (clientY - centerY) / 50;
+    
+    gsap.to('.orb-1', {
+        x: 100 + moveX * 2,
+        y: -50 + moveY * 2,
+        duration: 1,
+        ease: 'power2.out'
+    });
+    
+    gsap.to('.orb-2', {
+        x: -100 - moveX,
+        y: 100 - moveY,
+        duration: 1,
+        ease: 'power2.out'
+    });
+    
+    gsap.to('.orb-3', {
+        x: moveX * 1.5,
+        y: moveY * 1.5,
+        duration: 1,
+        ease: 'power2.out'
+    });
+});
+
+// Form validation visual feedback
+const formInputs = document.querySelectorAll('.form-input');
+formInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        if (input.value.length > 0) {
+            input.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+        } else {
+            input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        }
+    });
+});
+
+// Animate form on load
+window.addEventListener('load', () => {
+    gsap.from('.auth-logo', {
+        opacity: 0,
+        y: -30,
+        duration: 0.8,
+        delay: 0.2
+    });
+    
+    gsap.from('.form-title', {
+        opacity: 0,
+        y: -20,
+        duration: 0.8,
+        delay: 0.4
+    });
+    
+    gsap.from('.form-group', {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.1,
+        delay: 0.6
+    });
+    
+    gsap.from('.submit-btn', {
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.8,
+        delay: 1
+    });
+    
+    gsap.from('.auth-divider, .social-auth, .auth-footer', {
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        delay: 1.2
+    });
+});
+
+// Add ripple effect on button click
+document.querySelectorAll('.submit-btn, .social-btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple-animation 0.6s ease-out';
+        ripple.style.pointerEvents = 'none';
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const activeElement = document.activeElement;
+        if (activeElement.tagName === 'INPUT' && activeElement.type !== 'submit') {
+            const form = activeElement.closest('form');
+            const inputs = Array.from(form.querySelectorAll('input:not([type="submit"])'));
+            const currentIndex = inputs.indexOf(activeElement);
             
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+            if (currentIndex < inputs.length - 1) {
+                inputs[currentIndex + 1].focus();
             } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                form.querySelector('[type="submit"]').click();
             }
         }
+    }
+});
 
-        // Toggle between login and signup
-        function toggleForms() {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            
-            if (loginForm.classList.contains('hidden')) {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.remove('active');
-            } else {
-                loginForm.classList.add('hidden');
-                signupForm.classList.add('active');
-            }
+// Add shake animation for errors
+function shakeElement(element) {
+    gsap.to(element, {
+        x: -10,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 5,
+        onComplete: () => {
+            gsap.set(element, { x: 0 });
         }
+    });
+}
 
-        // Handle login
-        function handleLogin(e) {
-            e.preventDefault();
-            const btn = document.getElementById('loginBtn');
-            btn.classList.add('loading');
-            
-            // Simulate API call
-            setTimeout(() => {
-                btn.classList.remove('loading');
-                alert('Login successful!');
-            }, 2000);
+// Enhanced form validation
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validatePassword(password) {
+    return password.length >= 8;
+}
+
+// Add real-time validation feedback
+document.querySelectorAll('input[type="email"]').forEach(input => {
+    input.addEventListener('blur', () => {
+        if (input.value && !validateEmail(input.value)) {
+            input.style.borderColor = '#EF4444';
+            shakeElement(input);
         }
+    });
+});
 
-        // Handle signup
-        function handleSignup(e) {
-            e.preventDefault();
-            const btn = document.getElementById('signupBtn');
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            btn.classList.add('loading');
-            
-            // Simulate API call
-            setTimeout(() => {
-                btn.classList.remove('loading');
-                alert('Account created successfully!');
-                toggleForms();
-            }, 2000);
+document.querySelectorAll('input[type="password"]').forEach(input => {
+    input.addEventListener('blur', () => {
+        if (input.value && !validatePassword(input.value)) {
+            input.style.borderColor = '#EF4444';
+            shakeElement(input);
         }
+    });
+});
 
-        // Handle Google Auth
-        function handleGoogleAuth() {
-            alert('Google authentication would be implemented here');
-        }
+// Background gradient animation
+let gradientAngle = 0;
+function animateBackground() {
+    gradientAngle += 0.5;
+    const gradient = `linear-gradient(${gradientAngle}deg, rgba(34, 197, 94, 0.1) 0%, transparent 50%, rgba(34, 197, 94, 0.05) 100%)`;
+    const visualElement = document.querySelector('.auth-visual');
+    if (visualElement) {
+        visualElement.style.background = `#000 ${gradient}`;
+    }
+    requestAnimationFrame(animateBackground);
+}
+animateBackground();
 
-        // GSAP Animations for orbs
-        gsap.to('.orb-1', {
-            x: 100,
-            y: -50,
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-        });
+// Add floating animation to logo
+gsap.to('.auth-logo i', {
+    y: -5,
+    duration: 2,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+});
 
-        gsap.to('.orb-2', {
-            x: -100,
-            y: 100,
-            duration: 25,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-        });
-
-        gsap.to('.orb-3', {
-            scale: 1.2,
-            duration: 15,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-        });
-
-        // Input focus animations
-        const inputs = document.querySelectorAll('.form-input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                gsap.to(input, {
-                    scale: 1.02,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
+// Create ambient glow effect
+const glowContainer = document.querySelector('.orbs-container');
+if (glowContainer) {
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.auth-form-container')) {
+            const glow = document.createElement('div');
+            glow.style.position = 'absolute';
+            glow.style.width = '100px';
+            glow.style.height = '100px';
+            glow.style.borderRadius = '50%';
+            glow.style.background = 'radial-gradient(circle, rgba(34, 197, 94, 0.5), transparent)';
+            glow.style.left = e.clientX - 50 + 'px';
+            glow.style.top = e.clientY - 50 + 'px';
+            glow.style.pointerEvents = 'none';
+            
+            glowContainer.appendChild(glow);
+            
+            gsap.to(glow, {
+                scale: 3,
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.out',
+                onComplete: () => glow.remove()
             });
-            
-            input.addEventListener('blur', () => {
-                gsap.to(input, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: 'power2.out'
+        }
+    });
+}
+
+// Make functions globally accessible
+window.togglePassword = togglePassword;
+window.toggleForms = toggleForms;
+window.handleLogin = handleLogin;
+window.handleSignup = handleSignup;
+window.handleGoogleAuth = handleGoogleAuth;
