@@ -2028,61 +2028,18 @@ body.dark-mode .cta-btn.secondary:hover {
 
 
 @media (max-width: 480px) {
-    .categories-section {
-        padding: 60px 0;
-    }
+ 
 
-    .section-header {
-        margin-bottom: 40px;
+    .section-title{
+        font-size: clamp(2rem, 5vw, 3rem);
+             font-size: clamp(2rem, 8vw, 3.5rem);
+                          line-height: 1.15;
+                margin-bottom: 20px;
+                letter-spacing: -1px;
+                padding-right: 10px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
     }
-
-    .categories-grid {
-        margin-bottom: 40px;
-    }
-
-    .icon-wrapper {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 20px;
-    }
-
-    .icon-wrapper i {
-        font-size: 24px;
-    }
-
-    .card-title {
-        font-size: 1.3rem;
-    }
-
-    .card-stats {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .stat-number {
-        font-size: 1.5rem;
-    }
-
-    .cta-title {
-        font-size: 1.8rem;
-    }
-
-    .cta-description {
-        font-size: 1rem;
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .phone-showcase {
-        margin-top: 20px;
-    }
-
-    .section-ti
 }
 
 /* Animation Classes */
