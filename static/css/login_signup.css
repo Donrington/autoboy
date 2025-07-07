@@ -198,7 +198,7 @@
             }
         }
 
-        /* Right Side - Form Container */
+           /* Right Side - Form Container */
         .auth-form-container {
             display: flex;
             align-items: center;
@@ -207,15 +207,21 @@
             padding: 2rem;
             position: relative;
             z-index: 10;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        /* Form Wrapper */
+     /* Form Wrapper */
         .form-wrapper {
             width: 100%;
             max-width: 450px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease forwards;
+            padding: 2rem 0;
+            margin: auto;
+            min-height: min-content;
         }
 
         @keyframes fadeInUp {
@@ -223,6 +229,33 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        
+        /* Custom Scrollbar */
+        .auth-form-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .auth-form-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .auth-form-container::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 4px;
+            opacity: 0.5;
+        }
+
+        .auth-form-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-green-light);
+        }
+
+        /* Firefox Scrollbar */
+        .auth-form-container {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) rgba(255, 255, 255, 0.05);
         }
 
         /* Logo */
