@@ -61,8 +61,14 @@
             overflow: hidden;
         }
 
+        .logocon{
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+        }
         /* Logo */
-        .logo {
+        .logo a{
             display: flex;
             align-items: center;
             text-decoration: none;
