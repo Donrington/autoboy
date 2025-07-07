@@ -61,6 +61,26 @@
             overflow: hidden;
         }
 
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.2));
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.4));
+        }
         /* Main Container */
         .auth-container {
             display: grid;
