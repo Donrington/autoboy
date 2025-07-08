@@ -1,4 +1,3 @@
-
  // Custom Cursor Animation (Desktop Only)
         if (window.innerWidth >= 1024) {
             const cursorDot = document.getElementById('cursorDot');
@@ -381,17 +380,7 @@
             });
         });
 
-        // Smooth scroll indicator (optional)
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroSection = document.querySelector('.hero-section');
-            
-            // Parallax effect for background
-            gsap.to('.background-layer', {
-                y: scrolled * 0.5,
-                ease: 'none'
-            });
-        });
+  
         // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         let lastScrollY = window.scrollY;
@@ -1323,6 +1312,8 @@
                 footerCursor.style.opacity = '0';
             });
         
+
+
 
 
 

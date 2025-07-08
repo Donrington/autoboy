@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<style>
+    
+
+   /* Trending Deals Section */
+        .trending-section {
+            padding: 120px 0 80px;
+            position: relative;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-light-secondary) 100%);
+            overflow: hidden;
+        }
+
+        body.dark-mode .trending-section {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
+        }
+
+        /* Animated Background Elements */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            background: var(--gradient-green-light);
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 10%;
+            background: var(--gradient-primary);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(-20px, -50px) rotate(180deg); }
+            75% { transform: translate(-40px, 20px) rotate(270deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandLine 2s ease-out;
+        }
+
+        @keyframes expandLine {
+            0% { width: 0; }
+            100% { width: 100px; }
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: -2px;
+            position: relative;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.6)); }
+        }
+
+        .more-btn {
+            background: var(--glassmorphism-light);
+            backdrop-filter: blur(20px) saturate(1.8);
+            color: var(--text-light);
+            border: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .more-btn {
+            background: var(--glassmorphism-dark);
+            color: var(--text-dark);
+            border: 1px solid var(--border-dark);
+        }
+
+        .more-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .more-btn:hover::before {
+            left: 0;
+        }
+
+        .more-btn:hover {
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .more-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .more-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-light);
+            backdrop-filter: blur(20px) saturate(1.8);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        body.dark-mode .product-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -2;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: var(--card-light);
+            border-radius: 22px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .product-card::after {
+            background: var(--card-dark);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .product-card:hover::after {
+            background: var(--card-hover-light);
+        }
+
+        body.dark-mode .product-card:hover::after {
+            background: var(--card-hover-dark);
+        }
+
+        /* Product Image Container */
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-light-tertiary);
+        }
+
+        body.dark-mode .product-image-container {
+            background: var(--bg-dark-tertiary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* Product Badges */
+        .product-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge.trending {
+            background: var(--gradient-primary);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .badge.hot {
+            background: var(--gradient-green-light);
+            color: white;
+            animation: bounce 1s infinite;
+        }
+
+        .badge.new {
+            background: linear-gradient(135deg, var(--primary-green-glow), var(--primary-green-light));
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Favorite Button */
+        .favorite-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glassmorphism-light);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        body.dark-mode .favorite-btn {
+            background: var(--glassmorphism-dark);
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .favorite-btn.active {
+            background: var(--primary-green);
+            color: white;
+            animation: heartBeat 0.6s ease;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.15); }
+        }
+
+        /* Product Info */
+        .product-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .product-name {
+            color: var(--text-dark);
+        }
+
+        .product-card:hover .product-name {
+            color: var(--primary-green);
+        }
+
+        .product-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-tag {
+            background: var(--bg-light-tertiary);
+            color: var(--text-light-secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        body.dark-mode .spec-tag {
+            background: var(--bg-dark-tertiary);
+            color: var(--text-dark-secondary);
+            border: 1px solid var(--border-dark);
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-green);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: var(--text-light-tertiary);
+            text-decoration: line-through;
+        }
+
+        body.dark-mode .original-price {
+            color: var(--text-dark-tertiary);
+        }
+
+        .discount {
+            background: var(--primary-green-glow);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Rating */
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.1rem;
+        }
+
+        .star {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+        }
+
+        .star.empty {
+            color: var(--text-light-tertiary);
+        }
+
+        body.dark-mode .star.empty {
+            color: var(--text-dark-tertiary);
+        }
+
+        .rating-count {
+            color: var(--text-light-secondary);
+            font-size: 0.85rem;
+        }
+
+        body.dark-mode .rating-count {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Action Buttons */
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--glassmorphism-light);
+            color: var(--text-light);
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .btn-secondary {
+            background: var(--glassmorphism-dark);
+            color: var(--text-dark);
+            border: 1px solid var(--border-dark);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Staggered Animation */
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .trending-section {
+                padding: 80px 0 60px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .product-card {
+                padding: 1.2rem;
+            }
+            
+            .product-image-container {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+                letter-spacing: -1px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .product-card {
+                padding: 1rem;
+            }
+            
+            .product-image-container {
+                height: 160px;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .more-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+</style>
+
+     <!-- Trending Deals Section -->
+    <section class="trending-section">
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="floating-orb orb-1"></div>
+            <div class="floating-orb orb-2"></div>
+            <div class="floating-orb orb-3"></div>
+        </div>
+
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header reveal">
+                <h2 class="section-title">Trending Deals</h2>
+                <a href="#" class="more-btn">
+                    <span>More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1592286088408-26409d6bf88e?w=400&h=300&fit=crop&auto=format" alt="iPhone 16 Pro Max" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge trending">Trending</span>
+                            <span class="badge hot">Hot</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 16 Pro Max</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">256GB</span>
+                            <span class="spec-tag">5G</span>
+                            <span class="spec-tag">A18 Pro</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦1,850,000</span>
+                            <span class="original-price">₦2,100,000</span>
+                            <span class="discount">12% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(128 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&h=300&fit=crop&auto=format" alt="iPhone 16 Pro" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge trending">Trending</span>
+                        </div>
+                        <button class="favorite-btn active">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 16 Pro</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">512GB</span>
+                            <span class="spec-tag">Titanium</span>
+                            <span class="spec-tag">Pro Camera</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦1,680,000</span>
+                            <span class="original-price">₦1,850,000</span>
+                            <span class="discount">9% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(203 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=300&fit=crop&auto=format" alt="Samsung Galaxy Fold 7" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge hot">Hot</span>
+                            <span class="badge new">New</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Samsung Galaxy Fold 7</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">1TB</span>
+                            <span class="spec-tag">Foldable</span>
+                            <span class="spec-tag">S Pen</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦2,150,000</span>
+                            <span class="original-price">₦2,400,000</span>
+                            <span class="discount">10% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star empty"></i>
+                            </div>
+                            <span class="rating-count">(67 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&h=300&fit=crop&auto=format" alt="Samsung S25 Ultra" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge trending">Trending</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Samsung S25 Ultra</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">256GB</span>
+                            <span class="spec-tag">200MP</span>
+                            <span class="spec-tag">S Pen</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₁,580,000</span>
+                            <span class="original-price">₦1,750,000</span>
+                            <span class="discount">10% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(156 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=300&fit=crop&auto=format" alt="iPhone 14 Pro Max" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge hot">Hot Deal</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 14 Pro Max</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">128GB</span>
+                            <span class="spec-tag">A16 Bionic</span>
+                            <span class="spec-tag">Pro Camera</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦1,280,000</span>
+                            <span class="original-price">₦1,500,000</span>
+                            <span class="discount">15% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(342 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 7 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop&auto=format" alt="MacBook Pro 2024" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge new">New Arrival</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">MacBook Pro 2024</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">M4 Pro</span>
+                            <span class="spec-tag">32GB RAM</span>
+                            <span class="spec-tag">1TB SSD</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦3,200,000</span>
+                            <span class="original-price">₦3,500,000</span>
+                            <span class="discount">9% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(94 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 8 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=300&fit=crop&auto=format" alt="Gaming PC Setup" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge trending">Gaming Beast</span>
+                            <span class="badge hot">Limited</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Viper Tech Gaming PC</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">RTX 4090</span>
+                            <span class="spec-tag">Intel i9</span>
+                            <span class="spec-tag">64GB RAM</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦4,500,000</span>
+                            <span class="original-price">₦5,200,000</span>
+                            <span class="discount">13% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(76 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 9 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400&h=300&fit=crop&auto=format" alt="PS5 Console" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge hot">In Stock</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">PlayStation 5 Slim</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">1TB SSD</span>
+                            <span class="spec-tag">4K Gaming</span>
+                            <span class="spec-tag">Ray Tracing</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦850,000</span>
+                            <span class="original-price">₦950,000</span>
+                            <span class="discount">11% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <span class="rating-count">(289 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 10 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1544394208-bb5c132d4e45?w=400&h=300&fit=crop&auto=format" alt="iPad Pro 2024" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge new">Latest</span>
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPad Pro 2024</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">M4 Chip</span>
+                            <span class="spec-tag">12.9"</span>
+                            <span class="spec-tag">Apple Pencil</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₦1,680,000</span>
+                            <span class="original-price">₦1,850,000</span>
+                            <span class="discount">9% OFF</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star empty"></i>
+                            </div>
+                            <span class="rating-count">(145 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="action-btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="action-btn btn-secondary">
+                                <i class="fas fa-exchange-alt"></i>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<script>
+
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Favorite Button Functionality
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                btn.classList.toggle('active');
+                
+                if (btn.classList.contains('active')) {
+                    btn.style.animation = 'heartBeat 0.6s ease';
+                    setTimeout(() => {
+                        btn.style.animation = '';
+                    }, 600);
+                }
+            });
+        });
+
+        // Add to Cart Animation
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple-effect');
+                
+                btn.appendChild(ripple);
+                
+                // Add loading state
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                    btn.style.background = 'var(--primary-green)';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.style.background = '';
+                        ripple.remove();
+                    }, 1500);
+                }, 1000);
+            });
+        });
+
+        // Swap Button Animation
+        document.querySelectorAll('.btn-secondary').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const icon = btn.querySelector('i');
+                icon.style.animation = 'spin 0.5s ease';
+                
+                setTimeout(() => {
+                    icon.style.animation = '';
+                }, 500);
+            });
+        });
+
+        // Product Card Hover Effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Add glow effect to nearby cards
+                const allCards = document.querySelectorAll('.product-card');
+                const cardIndex = Array.from(allCards).indexOf(card);
+                
+                allCards.forEach((otherCard, index) => {
+                    if (Math.abs(index - cardIndex) <= 1 && otherCard !== card) {
+                        otherCard.style.transform = 'translateY(-5px) scale(1.01)';
+                        otherCard.style.opacity = '0.8';
+                    }
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                document.querySelectorAll('.product-card').forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.style.transform = '';
+                        otherCard.style.opacity = '';
+                    }
+                });
+            });
+        });
+
+        // Parallax Effect for Background Orbs
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            document.querySelectorAll('.floating-orb').forEach((orb, index) => {
+                const speed = 0.5 + (index * 0.2);
+                orb.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Price Animation on Load
+        function animatePrice(element) {
+            const finalPrice = element.textContent;
+            const numericPrice = parseInt(finalPrice.replace(/[^0-9]/g, ''));
+            const currency = finalPrice.replace(/[0-9,]/g, '');
+            let currentPrice = 0;
+            const increment = numericPrice / 100;
+            
+            const timer = setInterval(() => {
+                currentPrice += increment;
+                if (currentPrice >= numericPrice) {
+                    currentPrice = numericPrice;
+                    clearInterval(timer);
+                }
+                
+                element.textContent = currency + Math.floor(currentPrice).toLocaleString();
+            }, 20);
+        }
+
+        // Initialize price animations when elements come into view
+        const priceObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const priceElement = entry.target.querySelector('.current-price');
+                    if (priceElement && !priceElement.dataset.animated) {
+                        priceElement.dataset.animated = 'true';
+                        animatePrice(priceElement);
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            priceObserver.observe(card);
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple-effect {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize staggered animations
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.product-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 300);
+        });
+
+        // Performance optimization for scroll events
+        let ticking = false;
+        function updateScrollEffects() {
+            // Parallax and other scroll effects
+            const scrolled = window.pageYOffset;
+            
+            document.querySelectorAll('.floating-orb').forEach((orb, index) => {
+                const speed = 0.3 + (index * 0.1);
+                orb.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+            });
+            
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        });
+
+        console.log('🚀 Autoboy Trending Deals section initialized!');
+        console.log('✨ Features: Glassmorphism, Animations, Responsive Design');
+
+    </script>
+
+</body>
+</html>
