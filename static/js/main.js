@@ -189,15 +189,7 @@
             init() {
                 // Preload all images
                 this.preloadImages().then(() => {
-                    // Hide loading spinner
-                    gsap.to('#heroLoading', {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => {
-                            document.getElementById('heroLoading').style.display = 'none';
-                        }
-                    });
-
+                
                     // Start the slideshow
                     this.showImage(0);
                     this.startSlideshow();
@@ -461,19 +453,19 @@
         });
 
         // Smooth Scroll for Demo
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        //     anchor.addEventListener('click', function (e) {
+        //         e.preventDefault();
                 
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        //         const target = document.querySelector(this.getAttribute('href'));
+        //         if (target) {
+        //             target.scrollIntoView({
+        //                 behavior: 'smooth',
+        //                 block: 'start'
+        //             });
+        //         }
+        //     });
+        // });
 
         // Advanced Search Functionality
         const searchButtons = document.querySelectorAll('.search-btn');

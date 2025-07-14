@@ -8,6 +8,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="static/css/login_signup.css">
+        <link rel="stylesheet" href="static/css/styles.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +19,23 @@
     </style>
 </head>
 <body>
+
+    
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+
+ <!-- Hero Section -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <div class="auth-container">
         <!-- Left Side - Animated Visual -->
         <div class="auth-visual">
@@ -169,7 +187,14 @@
     </div>
 
     <!-- GSAP -->
+   
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <!-- GSAP --><script src="static/js/main.js"></script>
     
     <script>
        // Create particles
@@ -301,24 +326,24 @@ inputs.forEach(input => {
 });
 
 // Button hover animations
-const buttons = document.querySelectorAll('.submit-btn, .social-btn');
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        gsap.to(button, {
-            scale: 1.05,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
+// const buttons = document.querySelectorAll('.submit-btn, .social-btn');
+// buttons.forEach(button => {
+//     button.addEventListener('mouseenter', () => {
+//         gsap.to(button, {
+//             scale: 1.05,
+//             duration: 0.3,
+//             ease: 'power2.out'
+//         });
+//     });
     
-    button.addEventListener('mouseleave', () => {
-        gsap.to(button, {
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-});
+//     button.addEventListener('mouseleave', () => {
+//         gsap.to(button, {
+//             scale: 1,
+//             duration: 0.3,
+//             ease: 'power2.out'
+//         });
+//     });
+// });
 
 // Parallax effect on mouse move
 document.addEventListener('mousemove', (e) => {
