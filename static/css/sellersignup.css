@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell on Autoboy - Registration & Sign In</title>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
+:root {
             --primary-green: #22C55E;
             --primary-green-dark: #16A34A;
             --primary-green-light: #4ADE80;
@@ -255,18 +239,31 @@
             margin-bottom: 2rem;
         }
 
-        .seller-form-logo i {
-            font-size: 3rem;
-            color: var(--primary-green);
-            margin-bottom: 0.5rem;
-            display: block;
+        .logocon{
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+        }
+        /* Logo */
+        .logosign a{
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .seller-form-logo h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 2rem;
-            color: var(--primary-green);
-            margin: 0;
+        .logosign img {
+            height: 160px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.2));
+        }
+
+        .logosign:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.4));
         }
 
         /* Form Title */
@@ -472,6 +469,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: auto;
+            text-decoration: none;
+            text-align: center;
         }
 
         .seller-form-button:hover {
@@ -519,6 +518,7 @@
             justify-content: center;
             gap: 0.75rem;
             margin-bottom: 1rem;
+            text-decoration: none;
         }
 
         .seller-social-button:hover {
@@ -669,176 +669,3 @@
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
         }
-    </style>
-</head>
-<body>
-    <div class="seller-auth-container">
-        <!-- Left Visual Side -->
-        <div class="seller-auth-visual">
-            <div class="visual-floating-elements">
-                <div class="visual-element"></div>
-                <div class="visual-element"></div>
-            </div>
-            <div class="visual-3d-content">
-                <div class="visual-3d-character">
-                    <div class="visual-3d-phone">
-                        <div class="phone-screen">
-                            <div class="phone-store">STORE</div>
-                            <div style="font-size: 12px; color: #666; text-align: center;">
-                                <i class="fas fa-clock"></i> 08:30
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="visual-products">
-                    <div class="product-box">
-                        <i class="fas fa-box" style="color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; height: 100%;"></i>
-                    </div>
-                    <div class="product-box">
-                        <i class="fas fa-shopping-bag" style="color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; height: 100%;"></i>
-                    </div>
-                    <div class="product-box">
-                        <i class="fas fa-percentage" style="color: white; font-size: 24px; display: flex; align-items: center; justify-content: center; height: 100%;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Forms Side -->
-        <div class="seller-auth-forms">
-            <div class="seller-form-card">
-                <!-- Progress Bar -->
-                <div class="seller-progress-bar">
-                    <div class="seller-progress-fill" id="progressBar"></div>
-                </div>
-
-                <!-- Logo -->
-                <div class="seller-form-logo">
-                    <i class="fas fa-glasses"></i>
-                    <h2>Autoboy</h2>
-                </div>
-
-                <h3 class="seller-form-title">sell on Autoboy</h3>
-
-                <!-- Step 1: Country Selection -->
-                <form class="seller-form-step active" id="step1">
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Select your country</label>
-                        <select class="seller-form-select" id="countrySelect">
-                            <option value="">Select your country</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="GH">Ghana</option>
-                            <option value="KE">Kenya</option>
-                            <option value="ZA">South Africa</option>
-                            <option value="EG">Egypt</option>
-                        </select>
-                        <span class="seller-error-message">Please select a country</span>
-                    </div>
-                    <button type="button" class="seller-form-button" onclick="nextStep(1)">Next</button>
-                    <div class="seller-form-footer">
-                        Already have an account? <a href="#" onclick="showSignIn()">Sign In</a>
-                    </div>
-                </form>
-
-                <!-- Step 2: Email -->
-                <form class="seller-form-step" id="step2">
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Email Address</label>
-                        <input type="email" class="seller-form-input" id="emailInput" placeholder="Enter your email">
-                        <span class="seller-error-message">Please enter a valid email</span>
-                    </div>
-                    <button type="button" class="seller-form-button" onclick="nextStep(2)">Next</button>
-                </form>
-
-                <!-- Step 3: Email Verification -->
-                <form class="seller-form-step" id="step3">
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Usermatt11@gmail.com</label>
-                        <input type="text" class="seller-form-input seller-verification-input" 
-                               placeholder="Enter verification code" maxlength="6">
-                        <span class="seller-error-message">Invalid verification code</span>
-                    </div>
-                    <button type="button" class="seller-form-button" onclick="nextStep(3)">Verify</button>
-                    <button type="button" class="seller-resend-button">Resend Code</button>
-                </form>
-
-                <!-- Step 4: Phone & Password -->
-                <form class="seller-form-step" id="step4">
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Phone Number</label>
-                        <div class="seller-phone-group">
-                            <div class="seller-country-code">+234</div>
-                            <input type="tel" class="seller-form-input" placeholder="Phone Number">
-                        </div>
-                    </div>
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Password</label>
-                        <input type="password" class="seller-form-input" placeholder="Password">
-                    </div>
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Confirm Password</label>
-                        <input type="password" class="seller-form-input" placeholder="Confirm Password">
-                        <p class="seller-password-hint">
-                            Password should contain at least 8 characters containing a capital letter, 
-                            a lower letter, a number and a special character
-                        </p>
-                    </div>
-                    <button type="button" class="seller-form-button" onclick="nextStep(4)">Verify</button>
-                </form>
-
-                <!-- Step 5: Shop Information -->
-                <form class="seller-form-step" id="step5">
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Account Type</label>
-                        <div class="seller-radio-group">
-                            <div class="seller-radio-option">
-                                <input type="radio" id="business" name="accountType" class="seller-radio-input">
-                                <label for="business" class="seller-radio-label">Business</label>
-                            </div>
-                            <div class="seller-radio-option">
-                                <input type="radio" id="individual" name="accountType" class="seller-radio-input">
-                                <label for="individual" class="seller-radio-label">Individual</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Shop Name</label>
-                        <input type="text" class="seller-form-input" placeholder="Enter your shop name">
-                    </div>
-                    <div class="seller-form-group">
-                        <label class="seller-form-label">Shop Location</label>
-                        <input type="text" class="seller-form-input" placeholder="Enter your shop location">
-                    </div>
-                    <div class="seller-checkbox-group">
-                        <input type="checkbox" id="agreement" class="seller-checkbox">
-                        <label for="agreement" class="seller-checkbox-label">
-                            I agree to the Terms and Conditions and Privacy Policy of Autoboy marketplace
-                        </label>
-                    </div>
-                    <button type="button" class="seller-form-button" onclick="completeRegistration()">Complete Registration</button>
-                </form>
-
-                <!-- Sign In Form -->
-                <form class="seller-form-step" id="signInForm">
-                    <button type="button" class="seller-social-button seller-social-google">
-                        <i class="fab fa-google"></i>
-                        Sign in with Google
-                    </button>
-                    <button type="button" class="seller-social-button seller-social-email">
-                        <i class="fas fa-envelope"></i>
-                        Sign in with Email
-                    </button>
-                    <button type="button" class="seller-social-button seller-social-autoboy">
-                        <i class="fas fa-store"></i>
-                        Sign in with Autoboy
-                    </button>
-                    <div class="seller-form-footer">
-                        Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
