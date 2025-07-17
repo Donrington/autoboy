@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Autoboy</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rosario:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-green: #22C55E;
+            --primary-green-dark: #16A34A;
+            --primary-green-light: #4ADE80;
+            --primary-green-glow: #10B981;
+            
+            /* Light Mode Colors */
+            --bg-light: #FFFFFF;
+            --bg-light-secondary: #F9FAFB;
+            --bg-light-tertiary: #F3F4F6;
+            --text-light: #1F2937;
+            --text-light-secondary: #6B7280;
+            --text-light-tertiary: #9CA3AF;
+            
+            /* Dark Mode Colors */
+            --bg-dark: #0A0A0A;
+            --bg-dark-secondary: #111111;
+            --bg-dark-tertiary: #1A1A1A;
+            --text-dark: #F3F4F6;
+            --text-dark-secondary: #9CA3AF;
+            --text-dark-tertiary: #6B7280;
+            
+            /* Overlays and Cards */
+            --overlay-light: rgba(255, 255, 255, 0.9);
+            --overlay-dark: rgba(10, 10, 10, 0.85);
+            --card-light: rgba(255, 255, 255, 0.95);
+            --card-dark: rgba(30, 30, 30, 0.95);
+            --card-hover-light: rgba(255, 255, 255, 1);
+            --card-hover-dark: rgba(40, 40, 40, 1);
+            
+            /* Borders and Shadows */
+            --border-light: rgba(0, 0, 0, 0.08);
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --shadow-light: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-dark: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 60px rgba(34, 197, 94, 0.3);
+            --shadow-glow-intense: 0 0 120px rgba(34, 197, 94, 0.5);
+            
+            /* Additional Variables for Enhanced Design */
+            --gradient-primary: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            --gradient-green-light: linear-gradient(135deg, var(--primary-green-light), var(--primary-green));
+            --glassmorphism-light: rgba(255, 255, 255, 0.25);
+            --gradient-green: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            --glassmorphism-dark: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+            --text-muted-light: #9CA3AF;
+            --text-muted-dark: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Epilogue', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Shop Container */
+        .autoboy-shop-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Breadcrumb */
+        .autoboy-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light-secondary);
+        }
+
+        body.dark-mode .autoboy-breadcrumb {
+            color: var(--text-dark-secondary);
+        }
+
+        .autoboy-breadcrumb a {
+            color: var(--text-light-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .autoboy-breadcrumb a {
+            color: var(--text-dark-secondary);
+        }
+
+        .autoboy-breadcrumb a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Search Bar */
+        .autoboy-search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .autoboy-search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid var(--primary-green);
+            border-radius: 50px;
+            background: var(--bg-light);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .autoboy-search-input {
+            background: var(--bg-dark-secondary);
+            color: var(--text-dark);
+        }
+
+        .autoboy-search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+        }
+
+        .autoboy-search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
+
+        /* Shop Layout */
+        .autoboy-shop-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        /* Filters Sidebar */
+        .autoboy-filters-sidebar {
+            background: var(--bg-light-secondary);
+            border-radius: 20px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        body.dark-mode .autoboy-filters-sidebar {
+            background: var(--bg-dark-secondary);
+        }
+
+        .autoboy-filters-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin: -1.5rem -1.5rem 1.5rem;
+        }
+
+        /* Filter Section */
+        .autoboy-filter-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        body.dark-mode .autoboy-filter-section {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-filter-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .autoboy-filter-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        body.dark-mode .autoboy-filter-title {
+            color: var(--text-dark);
+        }
+
+        /* Price Range Slider */
+        .autoboy-price-range {
+            margin: 1.5rem 0;
+        }
+
+        .autoboy-price-slider {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-light-tertiary);
+            border-radius: 3px;
+            position: relative;
+            margin: 1rem 0 2rem;
+        }
+
+        body.dark-mode .autoboy-price-slider {
+            background: var(--bg-dark-tertiary);
+        }
+
+        .autoboy-price-track {
+            position: absolute;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+            left: 20%;
+            right: 20%;
+        }
+
+        .autoboy-price-thumb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-green);
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .autoboy-price-thumb.min {
+            left: 20%;
+        }
+
+        .autoboy-price-thumb.max {
+            left: 80%;
+        }
+
+        .autoboy-price-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--text-light-secondary);
+        }
+
+        body.dark-mode .autoboy-price-labels {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Brand Search */
+        .autoboy-brand-search {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .autoboy-brand-search-input {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            background: var(--bg-light);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        body.dark-mode .autoboy-brand-search-input {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+
+        .autoboy-brand-search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* Checkbox List */
+        .autoboy-checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .autoboy-checkbox-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .autoboy-checkbox-list::-webkit-scrollbar-track {
+            background: var(--bg-light-tertiary);
+            border-radius: 2px;
+        }
+
+        .autoboy-checkbox-list::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        .autoboy-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .autoboy-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        .autoboy-checkbox-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        body.dark-mode .autoboy-checkbox-label {
+            color: var(--text-dark);
+        }
+
+        /* Products Grid */
+        .autoboy-products-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .autoboy-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Product Card */
+        .autoboy-product-card {
+            background: var(--card-light);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        body.dark-mode .autoboy-product-card {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+        }
+
+        .autoboy-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light);
+            border-color: var(--primary-green);
+        }
+
+        body.dark-mode .autoboy-product-card:hover {
+            box-shadow: var(--shadow-dark);
+        }
+
+        /* Product Image */
+        .autoboy-product-image-container {
+            position: relative;
+            height: 200px;
+            background: var(--bg-light-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        body.dark-mode .autoboy-product-image-container {
+            background: var(--bg-dark-tertiary);
+        }
+
+        .autoboy-product-image {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .autoboy-product-card:hover .autoboy-product-image {
+            transform: scale(1.05);
+        }
+
+        /* Product Info */
+        .autoboy-product-info {
+            padding: 1.5rem;
+        }
+
+        .autoboy-product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        body.dark-mode .autoboy-product-name {
+            color: var(--text-dark);
+        }
+
+        .autoboy-product-price {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary-green);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .autoboy-product-price-currency {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* Quick Actions */
+        .autoboy-quick-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+        }
+
+        .autoboy-product-card:hover .autoboy-quick-actions {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .autoboy-quick-action {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .autoboy-quick-action {
+            background: var(--bg-dark-secondary);
+        }
+
+        .autoboy-quick-action:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Pagination */
+        .autoboy-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .autoboy-page-btn {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        body.dark-mode .autoboy-page-btn {
+            background: var(--bg-dark-secondary);
+            border-color: var(--border-dark);
+            color: var(--text-dark);
+        }
+
+        .autoboy-page-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .autoboy-page-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+
+        .autoboy-page-btn.prev,
+        .autoboy-page-btn.next {
+            padding: 0 1rem;
+        }
+
+        .autoboy-page-ellipsis {
+            color: var(--text-light-tertiary);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .autoboy-shop-layout {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .autoboy-shop-container {
+                padding: 1rem;
+            }
+
+            .autoboy-shop-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .autoboy-filters-sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 2rem;
+            }
+
+            .autoboy-products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+
+            .autoboy-product-image-container {
+                height: 150px;
+            }
+
+            .autoboy-product-info {
+                padding: 1rem;
+            }
+
+            .autoboy-product-name {
+                font-size: 0.9rem;
+            }
+
+            .autoboy-product-price {
+                font-size: 1.1rem;
+            }
+
+            .autoboy-quick-actions {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .autoboy-quick-action {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .autoboy-products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .autoboy-pagination {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Loading State */
+        .autoboy-product-skeleton {
+            background: linear-gradient(90deg, 
+                var(--bg-light-secondary) 25%, 
+                var(--bg-light-tertiary) 50%, 
+                var(--bg-light-secondary) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="autoboy-shop-container">
+        <!-- Breadcrumb -->
+        <div class="autoboy-breadcrumb">
+            <a href="#">Home</a>
+            <span>/</span>
+            <span>Smartphones</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="autoboy-search-container">
+            <input type="text" class="autoboy-search-input" placeholder="Search by name">
+            <i class="fas fa-search autoboy-search-icon"></i>
+        </div>
+
+        <!-- Shop Layout -->
+        <div class="autoboy-shop-layout">
+            <!-- Filters Sidebar -->
+            <aside class="autoboy-filters-sidebar">
+                <h2 class="autoboy-filters-header">Filters</h2>
+
+                <!-- Price Filter -->
+                <div class="autoboy-filter-section">
+                    <h3 class="autoboy-filter-title">Prices</h3>
+                    <div class="autoboy-price-range">
+                        <div class="autoboy-price-slider">
+                            <div class="autoboy-price-track"></div>
+                            <div class="autoboy-price-thumb min"></div>
+                            <div class="autoboy-price-thumb max"></div>
+                        </div>
+                        <div class="autoboy-price-labels">
+                            <span>100k</span>
+                            <span>200k</span>
+                            <span>300k</span>
+                            <span>600k</span>
+                            <span>800k</span>
+                            <span>1m+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brands Filter -->
+                <div class="autoboy-filter-section">
+                    <h3 class="autoboy-filter-title">Brands</h3>
+                    <div class="autoboy-brand-search">
+                        <input type="text" class="autoboy-brand-search-input" placeholder="Search brands">
+                        <i class="fas fa-search autoboy-brand-search-icon"></i>
+                    </div>
+                    <div class="autoboy-checkbox-list">
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Apple</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Samsung</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Google</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Xiaomi</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Oppo</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Vivo</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">OnePlus</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Realme</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Tecno</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Infinix</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Huawei</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">Redmi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Memory Filter -->
+                <div class="autoboy-filter-section">
+                    <h3 class="autoboy-filter-title">Memory</h3>
+                    <div class="autoboy-checkbox-list">
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">1 TB</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">128 GB</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">512 GB</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">64 GB</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">256 GB</span>
+                        </label>
+                        <label class="autoboy-checkbox-item">
+                            <input type="checkbox" class="autoboy-checkbox">
+                            <span class="autoboy-checkbox-label">32 GB</span>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Products Content -->
+            <div class="autoboy-products-content">
+                <!-- Products Grid -->
+                <div class="autoboy-products-grid">
+                    <!-- Product Card 1 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=300" alt="iPhone 15 Pro Max" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">iPhone 15 Pro Max</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>1,300,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1610438235354-a6ae5528385c?w=300" alt="Samsung A15" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">Samsung A15</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>230,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300" alt="MacBook Pro 2021" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">MacBook Pro 2021</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>700,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
