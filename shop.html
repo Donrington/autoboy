@@ -12,620 +12,266 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rosario:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/shop.css">
+   <link rel="stylesheet" href="static/css/styles.css">
     
-    <style>
-        :root {
-            --primary-green: #22C55E;
-            --primary-green-dark: #16A34A;
-            --primary-green-light: #4ADE80;
-            --primary-green-glow: #10B981;
-            
-            /* Light Mode Colors */
-            --bg-light: #FFFFFF;
-            --bg-light-secondary: #F9FAFB;
-            --bg-light-tertiary: #F3F4F6;
-            --text-light: #1F2937;
-            --text-light-secondary: #6B7280;
-            --text-light-tertiary: #9CA3AF;
-            
-            /* Dark Mode Colors */
-            --bg-dark: #0A0A0A;
-            --bg-dark-secondary: #111111;
-            --bg-dark-tertiary: #1A1A1A;
-            --text-dark: #F3F4F6;
-            --text-dark-secondary: #9CA3AF;
-            --text-dark-tertiary: #6B7280;
-            
-            /* Overlays and Cards */
-            --overlay-light: rgba(255, 255, 255, 0.9);
-            --overlay-dark: rgba(10, 10, 10, 0.85);
-            --card-light: rgba(255, 255, 255, 0.95);
-            --card-dark: rgba(30, 30, 30, 0.95);
-            --card-hover-light: rgba(255, 255, 255, 1);
-            --card-hover-dark: rgba(40, 40, 40, 1);
-            
-            /* Borders and Shadows */
-            --border-light: rgba(0, 0, 0, 0.08);
-            --border-dark: rgba(255, 255, 255, 0.08);
-            --shadow-light: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --shadow-dark: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-            --shadow-glow: 0 0 60px rgba(34, 197, 94, 0.3);
-            --shadow-glow-intense: 0 0 120px rgba(34, 197, 94, 0.5);
-            
-            /* Additional Variables for Enhanced Design */
-            --gradient-primary: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
-            --gradient-green-light: linear-gradient(135deg, var(--primary-green-light), var(--primary-green));
-            --glassmorphism-light: rgba(255, 255, 255, 0.25);
-            --gradient-green: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
-            --glassmorphism-dark: rgba(255, 255, 255, 0.05);
-            --neon-glow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
-            --text-muted-light: #9CA3AF;
-            --text-muted-dark: #6B7280;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Epilogue', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        body.dark-mode {
-            background-color: var(--bg-dark);
-            color: var(--text-dark);
-        }
-
-        /* Shop Container */
-        .autoboy-shop-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Breadcrumb */
-        .autoboy-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            font-size: 0.875rem;
-            color: var(--text-light-secondary);
-        }
-
-        body.dark-mode .autoboy-breadcrumb {
-            color: var(--text-dark-secondary);
-        }
-
-        .autoboy-breadcrumb a {
-            color: var(--text-light-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        body.dark-mode .autoboy-breadcrumb a {
-            color: var(--text-dark-secondary);
-        }
-
-        .autoboy-breadcrumb a:hover {
-            color: var(--primary-green);
-        }
-
-        /* Search Bar */
-        .autoboy-search-container {
-            max-width: 600px;
-            margin: 0 auto 3rem;
+ <style>
+          /* Footer Styles */
+        .footer {
             position: relative;
+            overflow: hidden;
+            margin-top: auto;
         }
 
-        .autoboy-search-input {
-            width: 100%;
-            padding: 1rem 3rem 1rem 1.5rem;
-            border: 2px solid var(--primary-green);
-            border-radius: 50px;
-            background: var(--bg-light);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode .autoboy-search-input {
-            background: var(--bg-dark-secondary);
-            color: var(--text-dark);
-        }
-
-        .autoboy-search-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
-        }
-
-        .autoboy-search-icon {
+        /* Background Image Layer */
+        .footer-bg {
             position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-green);
-            font-size: 1.2rem;
-        }
-
-        /* Shop Layout */
-        .autoboy-shop-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
-        }
-
-        /* Filters Sidebar */
-        .autoboy-filters-sidebar {
-            background: var(--bg-light-secondary);
-            border-radius: 20px;
-            padding: 1.5rem;
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-        }
-
-        body.dark-mode .autoboy-filters-sidebar {
-            background: var(--bg-dark-secondary);
-        }
-
-        .autoboy-filters-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            text-align: center;
-            margin: -1.5rem -1.5rem 1.5rem;
-        }
-
-        /* Filter Section */
-        .autoboy-filter-section {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        body.dark-mode .autoboy-filter-section {
-            border-bottom-color: var(--border-dark);
-        }
-
-        .autoboy-filter-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .autoboy-filter-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        body.dark-mode .autoboy-filter-title {
-            color: var(--text-dark);
-        }
-
-        /* Price Range Slider */
-        .autoboy-price-range {
-            margin: 1.5rem 0;
-        }
-
-        .autoboy-price-slider {
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 6px;
-            background: var(--bg-light-tertiary);
-            border-radius: 3px;
-            position: relative;
-            margin: 1rem 0 2rem;
-        }
-
-        body.dark-mode .autoboy-price-slider {
-            background: var(--bg-dark-tertiary);
-        }
-
-        .autoboy-price-track {
-            position: absolute;
             height: 100%;
-            background: var(--gradient-primary);
-            border-radius: 3px;
-            left: 20%;
-            right: 20%;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.3) saturate(1.5);
+            z-index: 1;
         }
 
-        .autoboy-price-thumb {
+        /* Animated Gradient Overlay */
+        .footer-gradient {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-green);
-            border: 3px solid white;
-            border-radius: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(34, 197, 94, 0.3) 0%,
+                rgba(16, 163, 74, 0.2) 25%,
+                rgba(10, 10, 10, 0.8) 50%,
+                rgba(16, 163, 74, 0.2) 75%,
+                rgba(34, 197, 94, 0.3) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            z-index: 2;
         }
 
-        .autoboy-price-thumb.min {
-            left: 20%;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .autoboy-price-thumb.max {
-            left: 80%;
+        /* Glassmorphism Container */
+        .footer-glass {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 3;
         }
 
-        .autoboy-price-labels {
+        body.dark-mode .footer-glass {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Top Navigation Bar */
+        .footer-nav {
+            padding: 2rem 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            font-size: 0.875rem;
-            color: var(--text-light-secondary);
-        }
-
-        body.dark-mode .autoboy-price-labels {
-            color: var(--text-dark-secondary);
-        }
-
-        /* Brand Search */
-        .autoboy-brand-search {
-            position: relative;
-            margin-bottom: 1rem;
-        }
-
-        .autoboy-brand-search-input {
-            width: 100%;
-            padding: 0.75rem 2.5rem 0.75rem 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            background: var(--bg-light);
-            color: var(--text-light);
-            font-size: 0.875rem;
-        }
-
-        body.dark-mode .autoboy-brand-search-input {
-            background: var(--bg-dark);
-            color: var(--text-dark);
-            border-color: var(--border-dark);
-        }
-
-        .autoboy-brand-search-icon {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light-tertiary);
-            font-size: 0.875rem;
-        }
-
-        /* Checkbox List */
-        .autoboy-checkbox-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .autoboy-checkbox-list::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .autoboy-checkbox-list::-webkit-scrollbar-track {
-            background: var(--bg-light-tertiary);
-            border-radius: 2px;
-        }
-
-        .autoboy-checkbox-list::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-            border-radius: 2px;
-        }
-
-        .autoboy-checkbox-item {
-            display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .autoboy-checkbox {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary-green);
-            cursor: pointer;
-        }
-
-        .autoboy-checkbox-label {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            cursor: pointer;
-            user-select: none;
-        }
-
-        body.dark-mode .autoboy-checkbox-label {
-            color: var(--text-dark);
-        }
-
-        /* Products Grid */
-        .autoboy-products-content {
-            display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 2rem;
         }
 
-        .autoboy-products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        /* Product Card */
-        .autoboy-product-card {
-            background: var(--card-light);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-        }
-
-        body.dark-mode .autoboy-product-card {
-            background: var(--card-dark);
-            border-color: var(--border-dark);
-        }
-
-        .autoboy-product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-light);
-            border-color: var(--primary-green);
-        }
-
-        body.dark-mode .autoboy-product-card:hover {
-            box-shadow: var(--shadow-dark);
-        }
-
-        /* Product Image */
-        .autoboy-product-image-container {
-            position: relative;
-            height: 200px;
-            background: var(--bg-light-secondary);
+        /* Logo */
+              /* Logo */
+        .footer-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        body.dark-mode .autoboy-product-image-container {
-            background: var(--bg-dark-tertiary);
-        }
-
-        .autoboy-product-image {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .autoboy-product-card:hover .autoboy-product-image {
-            transform: scale(1.05);
-        }
-
-        /* Product Info */
-        .autoboy-product-info {
-            padding: 1.5rem;
-        }
-
-        .autoboy-product-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-
-        body.dark-mode .autoboy-product-name {
-            color: var(--text-dark);
-        }
-
-        .autoboy-product-price {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--primary-green);
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 1rem;
-        }
-
-        .autoboy-product-price-currency {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        /* Quick Actions */
-        .autoboy-quick-actions {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.3s ease;
-        }
-
-        .autoboy-product-card:hover .autoboy-quick-actions {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .autoboy-quick-action {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .autoboy-quick-action {
-            background: var(--bg-dark-secondary);
-        }
-
-        .autoboy-quick-action:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        /* Pagination */
-        .autoboy-pagination {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 3rem;
-        }
-
-        .autoboy-page-btn {
-            min-width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-light-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            color: var(--text-light);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        body.dark-mode .autoboy-page-btn {
-            background: var(--bg-dark-secondary);
-            border-color: var(--border-dark);
-            color: var(--text-dark);
+        .footer-logo img {
+            height: 120px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.2));
         }
 
-        .autoboy-page-btn:hover {
-            background: var(--primary-green);
-            color: white;
-            border-color: var(--primary-green);
+        .footer-logo:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.4));
         }
-
-        .autoboy-page-btn.active {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-        }
-
-        .autoboy-page-btn.prev,
-        .autoboy-page-btn.next {
-            padding: 0 1rem;
-        }
-
-        .autoboy-page-ellipsis {
-            color: var(--text-light-tertiary);
-            font-weight: 600;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .autoboy-shop-layout {
-                grid-template-columns: 250px 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .autoboy-shop-container {
-                padding: 1rem;
-            }
-
-            .autoboy-shop-layout {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .autoboy-filters-sidebar {
-                position: relative;
-                top: 0;
-                margin-bottom: 2rem;
-            }
-
-            .autoboy-products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 1rem;
-            }
-
-            .autoboy-product-image-container {
-                height: 150px;
-            }
-
-            .autoboy-product-info {
-                padding: 1rem;
-            }
-
-            .autoboy-product-name {
-                font-size: 0.9rem;
-            }
-
-            .autoboy-product-price {
-                font-size: 1.1rem;
-            }
-
-            .autoboy-quick-actions {
-                opacity: 1;
-                transform: translateX(0);
-            }
-
-            .autoboy-quick-action {
-                width: 35px;
-                height: 35px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .autoboy-products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .autoboy-pagination {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Loading State */
-        .autoboy-product-skeleton {
-            background: linear-gradient(90deg, 
-                var(--bg-light-secondary) 25%, 
-                var(--bg-light-tertiary) 50%, 
-                var(--bg-light-secondary) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    </style>
+ </style>
 </head>
 <body>
+
+    
+    <!-- Ultra Modern Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="homepage.html" class="logo">
+                <img src="static/images/logo/autoboy_logo2.png" alt="Autoboy Logo">
+            </a>
+            
+            <!-- Navigation Center (Desktop) -->
+            <div class="nav-center">
+                <a href="becomeseller.html" class="become-seller-btn">
+                    <i class="fas fa-store"></i>
+                    <span>Become a seller</span>
+                </a>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Search products, brands and categories">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Right -->
+            <div class="nav-right">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+                
+                   <a href="#" class="nav-link">
+                    <i class="fas fa-headphones"></i>
+                    <span>Help</span>
+                </a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+        
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-search search-container">
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search products...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-nav-links">
+            <a href="becomeseller.html" class="mobile-nav-link">
+                <i class="fas fa-store"></i>
+                Become a seller
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                Account
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-heart"></i>
+                Wishlist
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+
+ <!-- Hero Section -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+
+    
+<section class="hero-section">
+        <!-- Loading Spinner -->
+       
+
+        <!-- Background Container -->
+        <div class="background-container">
+            <div class="background-layer">
+                <div class="background-image bg-1" data-index="0"></div>
+                <div class="background-image bg-2" data-index="1"></div>
+                <div class="background-image bg-3" data-index="2"></div>
+                <div class="background-image bg-4" data-index="3"></div>
+            </div>
+            <div class="gradient-overlay"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Floating Bubbles -->
+        <div class="floating-bubbles" id="bubblesContainer"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2 class="hero-subtitle">Your Tech Store</h2>
+                    <h1 class="hero-title">
+                       Shop Smart
+                        <span class="gradient-text">Shop Autoboy.</span>
+                    </h1>
+                    <p class="hero-description">
+                       Discover the latest smartphones, electronics, and tech accessories at unbeatable prices.
+                        Shop from top brands like Apple, Samsung, Google, and more with fast delivery.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="autoboy-shop-container">
         <!-- Breadcrumb -->
         <div class="autoboy-breadcrumb">
@@ -828,3 +474,414 @@
                     <div class="autoboy-product-card">
                         <div class="autoboy-quick-actions">
                             <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300" alt="Google Pixel 8 Pro" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">Google Pixel 8 Pro</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>950,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=300" alt="Xiaomi Redmi Note 13" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">Xiaomi Redmi Note 13</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>180,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" alt="OnePlus 12" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">OnePlus 12</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>650,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 7 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=300" alt="Samsung Galaxy S24 Ultra" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">Samsung Galaxy S24 Ultra</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>1,150,000
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 8 -->
+                    <div class="autoboy-product-card">
+                        <div class="autoboy-quick-actions">
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="autoboy-quick-action">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-product-image-container">
+                            <img src="https://images.unsplash.com/photo-1605236453806-b25e5d5cccb5?w=300" alt="Oppo Find X6 Pro" class="autoboy-product-image">
+                        </div>
+                        <div class="autoboy-product-info">
+                            <h3 class="autoboy-product-name">Oppo Find X6 Pro</h3>
+                            <div class="autoboy-product-price">
+                                <span class="autoboy-product-price-currency">₦</span>520,000
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="autoboy-pagination">
+                    <a href="#" class="autoboy-page-btn prev">
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </a>
+                    <a href="#" class="autoboy-page-btn active">1</a>
+                    <a href="#" class="autoboy-page-btn">2</a>
+                    <a href="#" class="autoboy-page-btn">3</a>
+                    <span class="autoboy-page-ellipsis">...</span>
+                    <a href="#" class="autoboy-page-btn">8</a>
+                    <a href="#" class="autoboy-page-btn next">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <!-- Main Footer Content -->
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <!-- Explore Our Range -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-store"></i> Explore Our Range</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span><strong>Latest Phones</strong><br>
+                                <small>Discover the newest smartphones available today.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headphones"></i>
+                                <span><strong>Top Accessories</strong><br>
+                                <small>Find the perfect accessories for your gadgets.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-tags"></i>
+                                <span><strong>Trending Deals</strong><br>
+                                <small>Unbeatable prices on selected electronic devices.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headset"></i>
+                                <span><strong>Customer Support</strong><br>
+                                <small>We're here to help you with any questions.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Us -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span><strong>FAQs</strong><br>
+                                Find answers to common customer queries.</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-at"></i>
+                                <span><a href="mailto:Autoboy@ng.com" class="contact-link">Autoboy@ng.com</a><br>
+                                Reach out for further assistance or inquiries.</span>
+                            </div>
+                            <a href="#" class="live-chat-btn">
+                                <i class="fas fa-comments"></i>
+                                Live Chat Support
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Engagement -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-users"></i> Community Engagement</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-star"></i>
+                                <span><strong>User Reviews</strong><br>
+                                <small>Read what others say about their purchases.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-column quick">
+                        <h3><i class="fas fa-link"></i> Quick Links</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">Help Centre</a>
+                            <a href="#" class="footer-link">Terms of Use</a>
+                            <a href="#" class="footer-link">Return Policy</a>
+                            <a href="#" class="footer-link">Shipping Info</a>
+                            <a href="#" class="footer-link">Feedback</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="newsletter-section">
+                        <h3 class="newsletter-title">Stay Connected</h3>
+                        <p class="newsletter-subtitle">Get the latest deals and updates delivered to your inbox</p>
+                        <form class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        @2025 AutoBoy - All rights reserved
+                    </div>
+                    
+                    <div class="footer-legal">
+                        <a href="#" class="footer-legal-link">Terms and condition</a>
+                        <a href="#" class="footer-legal-link">Privacy policy</a>
+                        <a href="#" class="footer-legal-link">Cookie policy</a>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-link" data-tooltip="Follow us on X">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Follow us on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Like us on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+        <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg class="progress-ring" viewBox="0 0 56 56">
+            <circle class="progress-ring__circle" cx="28" cy="28" r="26"></circle>
+        </svg>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <!-- GSAP --><script src="static/js/main.js"></script>
+    <!-- JavaScript -->
+    <script>
+       
+        // Search functionality
+        document.querySelector('.autoboy-search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const productCards = document.querySelectorAll('.autoboy-product-card');
+            
+            productCards.forEach(card => {
+                const productName = card.querySelector('.autoboy-product-name').textContent.toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Brand search functionality
+        document.querySelector('.autoboy-brand-search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const brandItems = document.querySelectorAll('.autoboy-checkbox-item');
+            
+            brandItems.forEach(item => {
+                const brandName = item.querySelector('.autoboy-checkbox-label').textContent.toLowerCase();
+                if (brandName.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.autoboy-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                filterProducts();
+            });
+        });
+
+        function filterProducts() {
+            const selectedBrands = [];
+            const selectedMemories = [];
+            
+            // Get selected brands
+            document.querySelectorAll('.autoboy-filter-section:nth-child(2) .autoboy-checkbox:checked').forEach(checkbox => {
+                selectedBrands.push(checkbox.nextElementSibling.textContent.toLowerCase());
+            });
+            
+            // Get selected memories
+            document.querySelectorAll('.autoboy-filter-section:nth-child(3) .autoboy-checkbox:checked').forEach(checkbox => {
+                selectedMemories.push(checkbox.nextElementSibling.textContent.toLowerCase());
+            });
+            
+            const productCards = document.querySelectorAll('.autoboy-product-card');
+            
+            productCards.forEach(card => {
+                const productName = card.querySelector('.autoboy-product-name').textContent.toLowerCase();
+                let showCard = true;
+                
+                // Filter by brand
+                if (selectedBrands.length > 0) {
+                    const matchesBrand = selectedBrands.some(brand => productName.includes(brand));
+                    if (!matchesBrand) showCard = false;
+                }
+                
+                // Filter by memory (if product has memory info)
+                if (selectedMemories.length > 0) {
+                    // This would need to be implemented based on product data structure
+                    // For now, we'll skip memory filtering
+                }
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+        }
+
+        // Quick action handlers
+        document.querySelectorAll('.autoboy-quick-action').forEach(action => {
+            action.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const icon = this.querySelector('i');
+                
+                if (icon.classList.contains('fa-heart')) {
+                    // Toggle wishlist
+                    icon.classList.toggle('fas');
+                    icon.classList.toggle('far');
+                    this.style.color = icon.classList.contains('fas') ? '#22C55E' : '';
+                } else if (icon.classList.contains('fa-exchange-alt')) {
+                    // Add to compare
+                    console.log('Added to compare');
+                }
+            });
+        });
+
+        // Price range slider simulation
+        document.querySelectorAll('.autoboy-price-thumb').forEach(thumb => {
+            thumb.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                const slider = this.closest('.autoboy-price-slider');
+                const rect = slider.getBoundingClientRect();
+                
+                const mouseMoveHandler = (e) => {
+                    const x = e.clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                    this.style.left = percentage + '%';
+                    
+                    // Update price track
+                    const minThumb = slider.querySelector('.autoboy-price-thumb.min');
+                    const maxThumb = slider.querySelector('.autoboy-price-thumb.max');
+                    const track = slider.querySelector('.autoboy-price-track');
+                    
+                    const minPos = parseFloat(minThumb.style.left || '20%');
+                    const maxPos = parseFloat(maxThumb.style.left || '80%');
+                    
+                    track.style.left = Math.min(minPos, maxPos) + '%';
+                    track.style.right = (100 - Math.max(minPos, maxPos)) + '%';
+                };
+                
+                const mouseUpHandler = () => {
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+                
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+        });
+
+        // Product card click handler
+        document.querySelectorAll('.autoboy-product-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const productName = this.querySelector('.autoboy-product-name').textContent;
+                // Redirect to product detail page
+                console.log('Navigate to product:', productName);
+            });
+        });
+
+        // Pagination handlers
+        document.querySelectorAll('.autoboy-page-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.autoboy-page-btn').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button (if it's a number)
+                if (!this.classList.contains('prev') && !this.classList.contains('next')) {
+                    this.classList.add('active');
+                }
+                
+                // Handle pagination logic here
+                console.log('Navigate to page:', this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
