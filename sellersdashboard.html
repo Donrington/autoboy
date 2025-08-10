@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Boy - Seller Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/brands.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary-green: #22C55E;
+            --primary-green-dark: #16A34A;
+            --primary-green-light: #4ADE80;
+            --primary-green-glow: #10B981;
+            
+            /* Light Mode Colors */
+            --bg-light: #FFFFFF;
+            --bg-light-secondary: #F9FAFB;
+            --bg-light-tertiary: #F3F4F6;
+            --text-light: #1F2937;
+            --text-light-secondary: #6B7280;
+            --text-light-tertiary: #9CA3AF;
+            
+            /* Dark Mode Colors */
+            --bg-dark: #0A0A0A;
+            --bg-dark-secondary: #111111;
+            --bg-dark-tertiary: #1A1A1A;
+            --text-dark: #F3F4F6;
+            --text-dark-secondary: #9CA3AF;
+            --text-dark-tertiary: #6B7280;
+            
+            /* Overlays and Cards */
+            --overlay-light: rgba(255, 255, 255, 0.9);
+            --overlay-dark: rgba(10, 10, 10, 0.85);
+            --card-light: rgba(255, 255, 255, 0.95);
+            --card-dark: rgba(30, 30, 30, 0.95);
+            --card-hover-light: rgba(255, 255, 255, 1);
+            --card-hover-dark: rgba(40, 40, 40, 1);
+            
+            /* Borders and Shadows */
+            --border-light: rgba(0, 0, 0, 0.08);
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --shadow-light: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-dark: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 60px rgba(34, 197, 94, 0.3);
+            --shadow-glow-intense: 0 0 120px rgba(34, 197, 94, 0.5);
+            
+            /* Additional Variables for Enhanced Design */
+            --gradient-primary: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            --gradient-green-light: linear-gradient(135deg, var(--primary-green-light), var(--primary-green));
+            --glassmorphism-light: rgba(255, 255, 255, 0.25);
+            --glassmorphism-dark: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Epilogue', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        body.autoboy-dash-dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.autoboy-dash-dark-mode::before {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
+        }
+
+        .autoboy-dash-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar */
+        .autoboy-dash-sidebar {
+            background: var(--gradient-primary);
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        .autoboy-dash-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        .autoboy-dash-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .autoboy-dash-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .autoboy-dash-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .autoboy-dash-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .autoboy-dash-avatar:hover::before {
+            opacity: 1;
+        }
+
+        .autoboy-dash-profile-info {
+            text-align: center;
+            color: white;
+        }
+
+        .autoboy-dash-seller-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .autoboy-dash-seller-status {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .autoboy-dash-nav {
+            list-style: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .autoboy-dash-nav-item {
+            margin-bottom: 0.75rem;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .autoboy-dash-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .autoboy-dash-nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.5s ease;
+        }
+
+        .autoboy-dash-nav-link:hover::before {
+            left: 100%;
+        }
+
+        .autoboy-dash-nav-link:hover,
+        .autoboy-dash-nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .autoboy-dash-nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .autoboy-dash-main {
+            background: var(--bg-light-secondary);
+            padding: 2rem;
+            position: relative;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-main {
+            background: var(--bg-dark-secondary);
+        }
+
+        .autoboy-dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-light);
+            position: relative;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-header {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-dash-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .autoboy-dash-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .autoboy-dash-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .autoboy-dash-theme-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .autoboy-dash-theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: var(--shadow-glow-intense);
+        }
+
+        /* Stats Grid */
+        .autoboy-dash-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .autoboy-dash-stat-card {
+            background: var(--card-light);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-stat-card {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .autoboy-dash-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .autoboy-dash-stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, 
+                rgba(34, 197, 94, 0.02) 0%, 
+                transparent 50%, 
+                rgba(34, 197, 94, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .autoboy-dash-stat-card:hover::after {
+            opacity: 1;
+        }
+
+        .autoboy-dash-stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--primary-green);
+        }
+
+        .autoboy-dash-stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .autoboy-dash-stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .autoboy-dash-stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .autoboy-dash-stat-label {
+            color: var(--text-light-secondary);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-stat-label {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Content Grid */
+        .autoboy-dash-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .autoboy-dash-section {
+            background: var(--card-light);
+            border-radius: 24px;
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-section {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .autoboy-dash-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .autoboy-dash-section-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-section-header {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-dash-section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-section-title {
+            color: var(--text-dark);
+        }
+
+        .autoboy-dash-section-content {
+            padding: 2rem;
+        }
+
+        /* Products Table */
+        .autoboy-dash-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .autoboy-dash-table-header {
+            background: var(--bg-light-tertiary);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table-header {
+            background: var(--bg-dark-tertiary);
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-dash-table th,
+        .autoboy-dash-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table th,
+        body.autoboy-dash-dark-mode .autoboy-dash-table td {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-dash-table th {
+            font-weight: 700;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table th {
+            color: var(--text-dark);
+        }
+
+        .autoboy-dash-table tbody tr {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .autoboy-dash-table tbody tr:hover {
+            background: var(--glassmorphism-light);
+            transform: scale(1.01);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table tbody tr:hover {
+            background: var(--glassmorphism-dark);
+        }
+
+        .autoboy-dash-product-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .autoboy-dash-product-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--bg-light-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-product-image {
+            background: var(--bg-dark-tertiary);
+        }
+
+        .autoboy-dash-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .autoboy-dash-status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .autoboy-dash-status-published {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--primary-green-dark);
+        }
+
+        .autoboy-dash-status-out-of-stock {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+        }
+
+        .autoboy-dash-status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #d97706;
+        }
+
+        .autoboy-dash-action-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: var(--text-light-secondary);
+            margin: 0 0.25rem;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-action-btn {
+            color: var(--text-dark-secondary);
+        }
+
+        .autoboy-dash-action-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Sales Chart */
+        .autoboy-dash-chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Sales Stats */
+        .autoboy-dash-sales-stat {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .autoboy-dash-sales-value {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .autoboy-dash-sales-label {
+            color: var(--text-light-secondary);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-sales-label {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Quick Actions */
+        .autoboy-dash-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .autoboy-dash-quick-action {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .autoboy-dash-quick-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.5s ease;
+        }
+
+        .autoboy-dash-quick-action:hover::before {
+            left: 100%;
+        }
+
+        .autoboy-dash-quick-action:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .autoboy-dash-quick-action-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Recent Orders */
+        .autoboy-dash-order-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-order-item {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .autoboy-dash-order-item:last-child {
+            border-bottom: none;
+        }
+
+        .autoboy-dash-order-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-light);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-order-info h4 {
+            color: var(--text-dark);
+        }
+
+        .autoboy-dash-order-info p {
+            font-size: 0.875rem;
+            color: var(--text-light-secondary);
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-order-info p {
+            color: var(--text-dark-secondary);
+        }
+
+        /* Floating Particles */
+        .autoboy-dash-floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .autoboy-dash-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .autoboy-dash-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .autoboy-dash-sidebar {
+                display: none;
+            }
+            
+            .autoboy-dash-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .autoboy-dash-stats {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .autoboy-dash-quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .autoboy-dash-main {
+                padding: 1rem;
+            }
+            
+            .autoboy-dash-title {
+                font-size: 2rem;
+            }
+            
+            .autoboy-dash-table {
+                font-size: 0.875rem;
+            }
+            
+            .autoboy-dash-table th,
+            .autoboy-dash-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .autoboy-dash-quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .autoboy-dash-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="autoboy-dash-floating-particles"></div>
+    
+    <div class="autoboy-dash-container">
+        <!-- Sidebar -->
+        <div class="autoboy-dash-sidebar">
+            <div class="autoboy-dash-profile">
+                <div class="autoboy-dash-avatar">
+                    <i class="fas fa-user" style="font-size: 2rem; color: var(--text-light-secondary);"></i>
+                </div>
+                <div class="autoboy-dash-profile-info">
+                    <h3 class="autoboy-dash-seller-name">John Doe</h3>
+                    <p class="autoboy-dash-seller-status">Verified Seller</p>
+                </div>
+            </div>
+            
+            <ul class="autoboy-dash-nav">
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link active" data-section="dashboard">
+                        <i class="autoboy-dash-nav-icon fas fa-chart-bar"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link" data-section="products">
+                        <i class="autoboy-dash-nav-icon fas fa-box"></i>
+                        Products
+                    </a>
+                </li>
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link" data-section="orders">
+                        <i class="autoboy-dash-nav-icon fas fa-shopping-cart"></i>
+                        Orders
+                    </a>
+                </li>
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link" data-section="earnings">
+                        <i class="autoboy-dash-nav-icon fas fa-dollar-sign"></i>
+                        Earnings
+                    </a>
+                </li>
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link" data-section="analytics">
+                        <i class="autoboy-dash-nav-icon fas fa-chart-line"></i>
+                        Analytics
+                    </a>
+                </li>
+                <li class="autoboy-dash-nav-item">
+                    <a href="#" class="autoboy-dash-nav-link" data-section="settings">
+                        <i class="autoboy-dash-nav-icon fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="autoboy-dash-main">
+            <!-- Header -->
+            <div class="autoboy-dash-header">
+                <h1 class="autoboy-dash-title">Dashboard</h1>
+                <div class="autoboy-dash-header-actions">
+                    <button class="autoboy-dash-theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="content-section">
+                <!-- Quick Actions -->
+                <div class="autoboy-dash-quick-actions">
+                    <a href="#" class="autoboy-dash-quick-action" onclick="showSection('products')">
+                        <div class="autoboy-dash-quick-action-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div>
+                            <h3>Add Product</h3>
+                            <p>List a new product</p>
+                        </div>
+                    </a>
+                    <a href="#" class="autoboy-dash-quick-action" onclick="showSection('orders')">
+                        <div class="autoboy-dash-quick-action-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div>
+                            <h3>Manage Orders</h3>
+                            <p>Process orders</p>
+                        </div>
+                    </a>
+                    <a href="#" class="autoboy-dash-quick-action" onclick="showSection('analytics')">
+                        <div class="autoboy-dash-quick-action-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div>
+                            <h3>View Analytics</h3>
+                            <p>Sales insights</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="autoboy-dash-stats">
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="24">0</div>
+                        <div class="autoboy-dash-stat-label">Active Products</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="5">0</div>
+                        <div class="autoboy-dash-stat-label">Pending Orders</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="152">0</div>
+                        <div class="autoboy-dash-stat-label">Total Sales</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-naira-sign"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="2500000" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">Total Earnings</div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="autoboy-dash-content">
+                    <!-- Recent Orders -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Recent Orders</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div class="autoboy-dash-order-item">
+                                <div class="autoboy-dash-order-info">
+                                    <h4>iPhone 15 Pro Max</h4>
+                                    <p>Order #AB12345 • 2 hours ago</p>
+                                </div>
+                                <div class="autoboy-dash-status-badge autoboy-dash-status-pending">Processing</div>
+                            </div>
+                            <div class="autoboy-dash-order-item">
+                                <div class="autoboy-dash-order-info">
+                                    <h4>Samsung Galaxy S24</h4>
+                                    <p>Order #AB12344 • 1 day ago</p>
+                                </div>
+                                <div class="autoboy-dash-status-badge autoboy-dash-status-published">Shipped</div>
+                            </div>
+                            <div class="autoboy-dash-order-item">
+                                <div class="autoboy-dash-order-info">
+                                    <h4>MacBook Pro M3</h4>
+                                    <p>Order #AB12343 • 2 days ago</p>
+                                </div>
+                                <div class="autoboy-dash-status-badge autoboy-dash-status-published">Delivered</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Chart -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Sales Overview</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div class="autoboy-dash-chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="products-content" class="content-section" style="display: none;">
+                <div class="autoboy-dash-section" style="grid-column: 1 / -1;">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">My Products</h2>
+                        <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                            <i class="fas fa-plus"></i>
+                            Add New Product
+                        </button>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <table class="autoboy-dash-table">
+                            <thead class="autoboy-dash-table-header">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>iPhone 15 Pro Max</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">256GB, Natural Titanium</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>₦1,350,000</td>
+                                    <td>5</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Published</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>Samsung Galaxy S24 Ultra</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">256GB, Titanium Black</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>₦950,000</td>
+                                    <td>0</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-out-of-stock">Out of Stock</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-laptop" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>MacBook Pro M3</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">16", 1TB, Space Gray</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>₦4,200,000</td>
+                                    <td>3</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Published</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other sections would be implemented similarly -->
+            <div id="orders-content" class="content-section" style="display: none;">
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Orders Management</h2>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
+                            Orders management interface would be implemented here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="earnings-content" class="content-section" style="display: none;">
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Earnings Overview</h2>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <div class="autoboy-dash-sales-stat">
+                            <div class="autoboy-dash-sales-value">₦2,500,000</div>
+                            <div class="autoboy-dash-sales-label">Total Earnings This Month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analytics-content" class="content-section" style="display: none;">
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Analytics Dashboard</h2>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
+                            Analytics dashboard would be implemented here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings-content" class="content-section" style="display: none;">
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Account Settings</h2>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
+                            Settings interface would be implemented here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Theme Management
+        let isDarkMode = false;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.querySelector('#themeToggle i');
+            
+            if (isDarkMode) {
+                body.classList.add('autoboy-dash-dark-mode');
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                body.classList.remove('autoboy-dash-dark-mode');
+                themeIcon.className = 'fas fa-moon';
+            }
+            
+            // Save theme preference
+            localStorage.setItem('dashboardTheme', isDarkMode ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('dashboardTheme');
+            if (savedTheme === 'dark') {
+                isDarkMode = false; // Set to false so toggleTheme() will make it true
+                toggleTheme();
+            }
+        }
+
+        // Page Load Animations
+        function initAnimations() {
+            // Sidebar animation
+            gsap.to('.autoboy-dash-sidebar', {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            // Main content animation
+            gsap.to('.autoboy-dash-main', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power2.out'
+            });
+
+            // Nav items stagger animation
+            gsap.to('.autoboy-dash-nav-item', {
+                opacity: 1,
+                x: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                delay: 0.5,
+                ease: 'power2.out'
+            });
+
+            // Stats cards animation
+            gsap.to('.autoboy-dash-stat-card', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                delay: 0.8,
+                ease: 'power2.out'
+            });
+
+            // Section animations
+            gsap.to('.autoboy-dash-section', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.2,
+                delay: 1,
+                ease: 'power2.out'
+            });
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.autoboy-dash-stat-value[data-target]');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const isCurrency = counter.getAttribute('data-currency');
+                const prefix = isCurrency ? '₦' : '';
+                
+                gsap.to({ value: 0 }, {
+                    value: target,
+                    duration: 2,
+                    delay: 1.2,
+                    ease: 'power2.out',
+                    onUpdate: function() {
+                        const currentValue = Math.round(this.targets()[0].value);
+                        counter.textContent = prefix + currentValue.toLocaleString();
+                    }
+                });
+            });
+        }
+
+        // Navigation Management
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.autoboy-dash-nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Update page title
+                    const title = this.textContent.trim();
+                    document.querySelector('.autoboy-dash-title').textContent = title;
+                });
+            });
+        }
+
+        // Section Management
+        function showSection(sectionName) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                gsap.to(section, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.3,
+                    onComplete: () => {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+
+            // Show selected section
+            setTimeout(() => {
+                const targetSection = document.getElementById(sectionName + '-content');
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    gsap.fromTo(targetSection, 
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+                    );
+                }
+            }, 300);
+        }
+
+        // Chart Initialization
+        function initChart() {
+            const ctx = document.getElementById('salesChart');
+            if (!ctx) return;
+
+            const chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Sales (₦)',
+                        data: [300000, 450000, 320000, 600000, 750000, 520000, 890000],
+                        borderColor: '#22C55E',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#22C55E',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '₦' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    elements: {
+                        point: {
+                            hoverBackgroundColor: '#22C55E'
+                        }
+                    }
+                }
+            });
+
+            // Update chart colors for dark mode
+            function updateChartTheme() {
+                const isDark = document.body.classList.contains('autoboy-dash-dark-mode');
+                const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+                const textColor = isDark ? '#9CA3AF' : '#6B7280';
+                
+                chartInstance.options.scales.y.grid.color = gridColor;
+                chartInstance.options.scales.y.ticks.color = textColor;
+                chartInstance.options.scales.x.ticks.color = textColor;
+                chartInstance.update();
+            }
+
+            // Listen for theme changes
+            const observer = new MutationObserver(updateChartTheme);
+            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        // Floating Particles
+        function createFloatingParticles() {
+            const container = document.querySelector('.autoboy-dash-floating-particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'autoboy-dash-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                container.appendChild(particle);
+
+                gsap.to(particle, {
+                    y: -100,
+                    x: Math.random() * 200 - 100,
+                    opacity: 0,
+                    duration: Math.random() * 3 + 2,
+                    repeat: -1,
+                    delay: Math.random() * 2,
+                    ease: 'power1.out'
+                });
+            }
+        }
+
+        // Action Button Handlers
+        function setupActionButtons() {
+            const actionButtons = document.querySelectorAll('.autoboy-dash-action-btn');
+            
+            actionButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const icon = this.querySelector('i');
+                    const action = icon.classList.contains('fa-edit') ? 'edit' : 
+                                  icon.classList.contains('fa-trash') ? 'delete' : 'view';
+                    
+                    // Add click animation
+                    gsap.to(this, {
+                        scale: 0.9,
+                        duration: 0.1,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: 'power2.out'
+                    });
+                    
+                    // Handle action
+                    setTimeout(() => {
+                        switch(action) {
+                            case 'edit':
+                                alert('Edit product functionality would be implemented here');
+                                break;
+                            case 'delete':
+                                if (confirm('Are you sure you want to delete this product?')) {
+                                    alert('Delete functionality would be implemented here');
+                                }
+                                break;
+                            case 'view':
+                                alert('View product functionality would be implemented here');
+                                break;
+                        }
+                    }, 200);
+                });
+            });
+        }
+
+        // Hover Effects
+        function setupHoverEffects() {
+            // Stat cards hover effect
+            const statCards = document.querySelectorAll('.autoboy-dash-stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, { y: -5, duration: 0.3, ease: 'power2.out' });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' });
+                });
+            });
+
+            // Quick actions hover effect
+            const quickActions = document.querySelectorAll('.autoboy-dash-quick-action');
+            quickActions.forEach(action => {
+                action.addEventListener('mouseenter', () => {
+                    gsap.to(action, { 
+                        y: -3, 
+                        boxShadow: '0 20px 40px rgba(34, 197, 94, 0.3)',
+                        duration: 0.3, 
+                        ease: 'power2.out' 
+                    });
+                });
+                
+                action.addEventListener('mouseleave', () => {
+                    gsap.to(action, { 
+                        y: 0, 
+                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        duration: 0.3, 
+                        ease: 'power2.out' 
+                    });
+                });
+            });
+        }
+
+        // Responsive Mobile Menu (for future mobile sidebar)
+        function setupMobileMenu() {
+            // Mobile menu functionality would be implemented here
+            // For now, the sidebar is hidden on mobile via CSS
+        }
+
+        // Initialize Dashboard
+        function initDashboard() {
+            loadTheme();
+            initAnimations();
+            initNavigation();
+            animateCounters();
+            setupActionButtons();
+            setupHoverEffects();
+            createFloatingParticles();
+            
+            // Initialize chart after a delay to ensure DOM is ready
+            setTimeout(() => {
+                initChart();
+            }, 1500);
+        }
+
+        // Start when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Recalculate animations and layouts if needed
+        });
+
+        // Error handling for missing elements
+        window.addEventListener('error', (e) => {
+            console.warn('Dashboard warning:', e.message);
+        });
+    </script>
+</body>
+</html>

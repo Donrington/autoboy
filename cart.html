@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Boy - Shopping Cart</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/brands.min.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="static/css/cart.css">
+    <link rel="stylesheet" href="static/css/homepage.css">
+          <link rel="stylesheet" href="static/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="autoboy-cart-floating-particles"></div>
+       <!-- Ultra Modern Navbar -->
+        <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="homepage.html" class="logo">
+                <img src="static/images/logo/autoboy_logo2.png" alt="Autoboy Logo">
+            </a>
+            
+            <!-- Navigation Center (Desktop) -->
+            <div class="nav-center">
+                <a href="becomeseller.html" class="become-seller-btn">
+                    <i class="fas fa-store"></i>
+                    <span>Become a seller</span>
+                </a>
+                
+                <!-- Shop Dropdown -->
+                <div class="nav-dropdown">
+                    <a href="shop.html" class="nav-dropdown-trigger">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Shop</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-section-title">Categories</h4>
+                            <div class="dropdown-links">
+                                <a href="shop.html?category=brand-new" class="dropdown-link">
+                                    <i class="fas fa-tag"></i>
+                                    <span>Brand New</span>
+                                </a>
+                                <a href="shop.html?category=uk-used" class="dropdown-link">
+                                    <i class="fas fa-globe"></i>
+                                    <span>UK Used</span>
+                                </a>
+                                <a href="shop.html?category=good-deal" class="dropdown-link">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Good Deal</span>
+                                </a>
+                                <a href="shop.html?category=nigerian-used" class="dropdown-link">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Nigerian Used</span>
+                                </a>
+                                <a href="shop.html?category=swap-deal" class="dropdown-link">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>Swap Deal</span>
+                                </a>
+                                <a href="shop.html?category=for-sale" class="dropdown-link">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>For Sale</span>
+                                </a>
+                                <a href="shop.html?category=want-to-buy" class="dropdown-link">
+                                    <i class="fas fa-search"></i>
+                                    <span>Want to Buy</span>
+                                </a>
+                                <a href="shop.html?category=random-items" class="dropdown-link">
+                                    <i class="fas fa-random"></i>
+                                    <span>Random Items</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-section-title">Device Types</h4>
+                            <div class="dropdown-links">
+                                <a href="shop.html?type=phones" class="dropdown-link">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Smartphones</span>
+                                </a>
+                                <a href="shop.html?type=laptops" class="dropdown-link">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>Laptops</span>
+                                </a>
+                                <a href="shop.html?type=tablets" class="dropdown-link">
+                                    <i class="fas fa-tablet-alt"></i>
+                                    <span>Tablets</span>
+                                </a>
+                                <a href="shop.html?type=audio" class="dropdown-link">
+                                    <i class="fas fa-volume-up"></i>
+                                    <span>Audio Equipment</span>
+                                </a>
+                                <a href="shop.html?type=headphones" class="dropdown-link">
+                                    <i class="fas fa-headphones"></i>
+                                    <span>Headphones</span>
+                                </a>
+                                <a href="shop.html?type=gaming" class="dropdown-link">
+                                    <i class="fas fa-gamepad"></i>
+                                    <span>Video Game Consoles</span>
+                                </a>
+                                <a href="shop.html?type=accessories" class="dropdown-link">
+                                    <i class="fas fa-plug"></i>
+                                    <span>Accessories</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Search products, brands and categories">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Right -->
+            <div class="nav-right">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+                
+                   <a href="#" class="nav-link">
+                    <i class="fas fa-headphones"></i>
+                    <span>Help</span>
+                </a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+        
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-search search-container">
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search products...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-nav-links">
+            <a href="becomeseller.html" class="mobile-nav-link">
+                <i class="fas fa-store"></i>
+                Become a seller
+            </a>
+            
+            <!-- Mobile Shop Dropdown -->
+            <div class="mobile-nav-dropdown">
+                <div class="mobile-nav-link mobile-dropdown-trigger">
+                    <i class="fas fa-shopping-bag"></i>
+                    Shop
+                    <i class="fas fa-chevron-down mobile-dropdown-arrow"></i>
+                </div>
+                <div class="mobile-dropdown-menu">
+                    <div class="mobile-dropdown-section">
+                        <h5>Categories</h5>
+                        <a href="shop.html?category=brand-new" class="mobile-dropdown-link">Brand New</a>
+                        <a href="shop.html?category=uk-used" class="mobile-dropdown-link">UK Used</a>
+                        <a href="shop.html?category=good-deal" class="mobile-dropdown-link">Good Deal</a>
+                        <a href="shop.html?category=nigerian-used" class="mobile-dropdown-link">Nigerian Used</a>
+                        <a href="shop.html?category=swap-deal" class="mobile-dropdown-link">Swap Deal</a>
+                        <a href="shop.html?category=for-sale" class="mobile-dropdown-link">For Sale</a>
+                        <a href="shop.html?category=want-to-buy" class="mobile-dropdown-link">Want to Buy</a>
+                        <a href="shop.html?category=random-items" class="mobile-dropdown-link">Random Items</a>
+                    </div>
+                    <div class="mobile-dropdown-section">
+                        <h5>Device Types</h5>
+                        <a href="shop.html?type=phones" class="mobile-dropdown-link">Smartphones</a>
+                        <a href="shop.html?type=laptops" class="mobile-dropdown-link">Laptops</a>
+                        <a href="shop.html?type=tablets" class="mobile-dropdown-link">Tablets</a>
+                        <a href="shop.html?type=audio" class="mobile-dropdown-link">Audio Equipment</a>
+                        <a href="shop.html?type=headphones" class="mobile-dropdown-link">Headphones</a>
+                        <a href="shop.html?type=gaming" class="mobile-dropdown-link">Video Game Consoles</a>
+                        <a href="shop.html?type=accessories" class="mobile-dropdown-link">Accessories</a>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                Account
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-heart"></i>
+                Wishlist
+            </a>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+ <!-- Hero Section -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+
+        <section class="hero-section">
+        <!-- Loading Spinner -->
+       
+
+        <!-- Background Container -->
+        <div class="background-container">
+            <div class="background-layer">
+                <div class="background-image bg-1" data-index="0"></div>
+                <div class="background-image bg-2" data-index="1"></div>
+                <div class="background-image bg-3" data-index="2"></div>
+                <div class="background-image bg-4" data-index="3"></div>
+            </div>
+            <div class="gradient-overlay"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Floating Bubbles -->
+        <div class="floating-bubbles" id="bubblesContainer"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h2 class="hero-subtitle">Shopping Cart</h2>
+                    <h1 class="hero-title">
+                       Review Your
+                        <span class="gradient-text">Selected Items</span>
+                    </h1>
+                    <p class="hero-description">
+                       Review your cart items, adjust quantities, and proceed to secure checkout. 
+                       Enjoy transparent pricing and seamless shopping experience at Autoboy.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="autoboy-cart-container">
+        <!-- Header -->
+   
+
+        <!-- Main Grid -->
+        <div class="autoboy-cart-main-grid">
+            <!-- Cart Items Section -->
+            <div class="autoboy-cart-items-section">
+                <!-- Header -->
+         
+                <!-- Items List -->
+                <div class="autoboy-cart-items-list">
+                    <!-- Cart Item 1 -->
+                    <div class="autoboy-cart-summary-item">
+                        <div class="autoboy-cart-summary-product">
+                            <div class="autoboy-cart-summary-product-image">
+                                <img src="static/mockups/galaxys24ultra-portrait.png" alt="Samsung Galaxy S24 Ultra">
+                            </div>
+                            <div class="autoboy-cart-summary-product-info">
+                                <h4>Samsung Galaxy S24 Ultra</h4>
+                                <p>256 GB Phantom Black</p>
+                            </div>
+                            <div class="autoboy-cart-quantity-controls">
+                                <button class="autoboy-cart-quantity-btn" onclick="decreaseQuantity(1)">-</button>
+                                <span class="autoboy-cart-quantity-value" id="qty-1">2</span>
+                                <button class="autoboy-cart-quantity-btn" onclick="increaseQuantity(1)">+</button>
+                            </div>
+                            <div class="autoboy-cart-summary-price">₦3,700,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Item 2 -->
+                    <div class="autoboy-cart-summary-item">
+                        <div class="autoboy-cart-summary-product">
+                            <div class="autoboy-cart-summary-product-image">
+                                <img src="static/mockups/mac-front.png" alt="MacBook Pro 16\"">
+                            </div>
+                            <div class="autoboy-cart-summary-product-info">
+                                <h4>MacBook Pro 16"</h4>
+                                <p>M3 Max, 1TB SSD, Space Black</p>
+                            </div>
+                            <div class="autoboy-cart-quantity-controls">
+                                <button class="autoboy-cart-quantity-btn" onclick="decreaseQuantity(2)">-</button>
+                                <span class="autoboy-cart-quantity-value" id="qty-2">1</span>
+                                <button class="autoboy-cart-quantity-btn" onclick="increaseQuantity(2)">+</button>
+                            </div>
+                            <div class="autoboy-cart-summary-price">₦4,200,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary Section -->
+            <div class="autoboy-cart-summary">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Order Summary</h3>
+
+                <div class="autoboy-cart-total-section">
+                    <div class="autoboy-cart-total-row">
+                        <span class="autoboy-cart-total-label">Subtotal (4 items)</span>
+                        <span class="autoboy-cart-total-value" id="subtotal">₦10,700,000</span>
+                    </div>
+                    <div class="autoboy-cart-total-row">
+                        <span class="autoboy-cart-total-label">Shipping</span>
+                        <span class="autoboy-cart-total-value">₦50,000</span>
+                    </div>
+                    <div class="autoboy-cart-total-row">
+                        <span class="autoboy-cart-total-label">Tax (VAT 7.5%)</span>
+                        <span class="autoboy-cart-total-value" id="tax">₦802,500</span>
+                    </div>
+                    <div class="autoboy-cart-total-row">
+                        <span class="autoboy-cart-total-label">Total</span>
+                        <span class="autoboy-cart-total-value" id="total">₦11,552,500</span>
+                    </div>
+                </div>
+
+                <button class="autoboy-cart-checkout-btn" onclick="proceedToCheckout()">
+                    Checkout
+                </button>
+
+                <div style="margin-top: 1rem; text-align: center;">
+                    <button class="autoboy-cart-continue-shopping" onclick="continueShopping()">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Cart State (Hidden by default) -->
+        <div class="autoboy-cart-empty-state" style="display: none;" id="emptyCart">
+            <div class="autoboy-cart-empty-icon">🛒</div>
+            <h2 class="autoboy-cart-empty-title">Your cart is empty</h2>
+            <p style="color: var(--text-light-secondary); margin-bottom: 2rem;">
+                Looks like you haven't added any items to your cart yet.
+            </p>
+            <button class="autoboy-cart-continue-shopping" onclick="continueShopping()">
+                Start Shopping
+            </button>
+        </div>
+    </div>
+<!-- CTA SECTION - ULTRA MODERN MINIMALISTIC -->
+<section class="autoboy-cta-banner" id="autoboyCtaZone" data-aos="fade-up">
+    <div class="autoboy-cta-decorative-elements">
+        <div class="autoboy-cta-shape autoboy-cta-shape-1"></div>
+        <div class="autoboy-cta-shape autoboy-cta-shape-2"></div>
+        <div class="autoboy-cta-shape autoboy-cta-shape-3"></div>
+        <div class="autoboy-cta-shape autoboy-cta-shape-4"></div>
+        <div class="autoboy-cta-shape autoboy-cta-shape-5"></div>
+    </div>
+    
+    <div class="autoboy-cta-particles" id="autoboyCtaParticles"></div>
+    
+    <div class="autoboy-cta-content-wrapper">
+        <div class="autoboy-cta-text-section">
+            <h2 class="autoboy-cta-main-heading">Shop Smarter.<br>Live Sharper.</h2>
+            <p class="autoboy-cta-tagline">Autoboy's Got Your Tech</p>
+            <a href="shop.html" class="autoboy-cta-action-button">
+                <span>Shop Now</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+           <footer class="footer">
+        <!-- Background Layers -->
+        <div class="footer-bg"></div>
+        <div class="footer-gradient"></div>
+        
+        <!-- Floating Particles -->
+        <div class="footer-particles" id="particles"></div>
+
+        <!-- Glass Container -->
+        <div class="footer-glass">
+            <!-- Top Navigation -->
+            <nav class="footer-nav">
+                <div class="footer-nav-content">
+                    <a href="homepage.html" class="footer-logo">
+                   
+                        <div class="footer-logo-text">
+                      <a href="homepage.html" class="footer-logo">
+                <img src="static/images/logo/autoboy_logo3.png" alt="Autoboy Logo">
+            </a>
+                        </div>
+                    </a>
+                    
+                    <div class="footer-nav-links">
+                        <a href="#" class="footer-nav-link">Buy Now</a>
+                        <a href="#" class="footer-nav-link">Sell Now</a>
+                        <a href="#" class="footer-nav-link">Swap Gadgets</a>
+                    </div>
+                    
+                    <div class="footer-auth">
+                        <a href="login.html" class="footer-btn footer-btn-outline">Join</a>
+                        <a href="login.html" class="footer-btn footer-btn-primary">Login</a>
+                    </div>
+                </div>
+            </nav>
+
+ <!-- Main Footer Content -->
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <!-- Explore Our Range -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-store"></i> Explore Our Range</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span><strong>Latest Phones</strong><br>
+                                <small>Discover the newest smartphones available today.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headphones"></i>
+                                <span><strong>Top Accessories</strong><br>
+                                <small>Find the perfect accessories for your gadgets.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-tags"></i>
+                                <span><strong>Trending Deals</strong><br>
+                                <small>Unbeatable prices on selected electronic devices.</small></span>
+                            </a>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-headset"></i>
+                                <span><strong>Customer Support</strong><br>
+                                <small>We're here to help you with any questions.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Us -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span><strong>FAQs</strong><br>
+                                Find answers to common customer queries.</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-at"></i>
+                                <span><a href="mailto:Autoboy@ng.com" class="contact-link">Autoboy@ng.com</a><br>
+                                Reach out for further assistance or inquiries.</span>
+                            </div>
+                            <a href="#" class="live-chat-btn">
+                                <i class="fas fa-comments"></i>
+                                Live Chat Support
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Engagement -->
+                    <div class="footer-column">
+                        <h3><i class="fas fa-users"></i> Community Engagement</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-star"></i>
+                                <span><strong>User Reviews</strong><br>
+                                <small>Read what others say about their purchases.</small></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-column quick">
+                        <h3><i class="fas fa-link"></i> Quick Links</h3>
+                        <div class="footer-links">
+                            <a href="#" class="footer-link">Help Centre</a>
+                            <a href="#" class="footer-link">Terms of Use</a>
+                            <a href="#" class="footer-link">Return Policy</a>
+                            <a href="#" class="footer-link">Shipping Info</a>
+                            <a href="#" class="footer-link">Feedback</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="newsletter-section">
+                        <h3 class="newsletter-title">Stay Connected</h3>
+                        <p class="newsletter-subtitle">Get the latest deals and updates delivered to your inbox</p>
+                        <form class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        @2025 AutoBoy - All rights reserved
+                    </div>
+                    
+                    <div class="footer-legal">
+                        <a href="#" class="footer-legal-link">Terms and condition</a>
+                        <a href="#" class="footer-legal-link">Privacy policy</a>
+                        <a href="#" class="footer-legal-link">Cookie policy</a>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-link" data-tooltip="Follow us on X">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Follow us on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" data-tooltip="Like us on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+        <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg class="progress-ring" viewBox="0 0 56 56">
+            <circle class="progress-ring__circle" cx="28" cy="28" r="26"></circle>
+        </svg>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+          <script src="static/js/main.js"></script>
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial page load animations
+        gsap.timeline()
+            .to('.autoboy-cart-header', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            })
+            .to('.autoboy-cart-item', {
+                opacity: 1,
+                x: 0,
+                duration: 0.6,
+                stagger: 0.2,
+                ease: 'power2.out'
+            }, '-=0.4')
+            .to('.autoboy-cart-summary', {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            }, '-=0.6');
+
+        // Floating particles animation
+        function createParticles() {
+            const container = document.querySelector('.autoboy-cart-floating-particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'autoboy-cart-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                container.appendChild(particle);
+
+                gsap.to(particle, {
+                    y: -100,
+                    x: Math.random() * 200 - 100,
+                    opacity: 0,
+                    duration: Math.random() * 3 + 2,
+                    repeat: -1,
+                    delay: Math.random() * 2,
+                    ease: 'power1.out'
+                });
+            }
+        }
+
+        // Quantity update function
+        function updateQuantity(button, change) {
+            const controls = button.parentElement;
+            const input = controls.querySelector('.autoboy-cart-qty-input');
+            const currentQty = parseInt(input.value);
+            const newQty = Math.max(1, currentQty + change);
+            
+            if (newQty !== currentQty) {
+                input.value = newQty;
+                
+                // Animation for quantity change
+                gsap.to(input, {
+                    scale: 1.2,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.out'
+                });
+
+                // Update totals
+                updateCartTotals();
+                updateSummaryQuantities();
+            }
+
+            // Button press animation
+            gsap.to(button, {
+                scale: 0.9,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.out'
+            });
+        }
+
+        // Remove item function
+        function removeItem(button) {
+            const cartItem = button.closest('.autoboy-cart-item');
+            
+            // Confirm removal
+            if (confirm('Are you sure you want to remove this item from your cart?')) {
+                // Animate removal
+                gsap.to(cartItem, {
+                    opacity: 0,
+                    x: -100,
+                    height: 0,
+                    padding: 0,
+                    margin: 0,
+                    duration: 0.5,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        cartItem.remove();
+                        updateCartTotals();
+                        updateSummaryQuantities();
+                        checkEmptyCart();
+                    }
+                });
+            }
+        }
+
+        // Update cart totals
+        function updateCartTotals() {
+            const items = document.querySelectorAll('.autoboy-cart-item');
+            let subtotal = 0;
+            let totalItems = 0;
+
+            items.forEach(item => {
+                const priceText = item.querySelector('.autoboy-cart-item-price').textContent;
+                const price = parseInt(priceText.replace(/[₦,]/g, ''));
+                const qty = parseInt(item.querySelector('.autoboy-cart-qty-input').value);
+                
+                subtotal += price * qty;
+                totalItems += qty;
+            });
+
+            const shipping = subtotal > 0 ? 50000 : 0;
+            const tax = Math.round(subtotal * 0.075);
+            const total = subtotal + shipping + tax;
+
+            // Animate number changes
+            const subtotalEl = document.getElementById('subtotal');
+            const taxEl = document.getElementById('tax');
+            const totalEl = document.getElementById('total');
+
+            animateNumber(subtotalEl, subtotal);
+            animateNumber(taxEl, tax);
+            animateNumber(totalEl, total);
+
+            // Update item count in subtotal label
+            document.querySelector('.autoboy-cart-total-row .autoboy-cart-total-label').textContent = 
+                `Subtotal (${totalItems} items)`;
+        }
+
+        // Animate number changes
+        function animateNumber(element, newValue) {
+            const currentValue = parseInt(element.textContent.replace(/[₦,]/g, '')) || 0;
+            
+            gsap.to({ value: currentValue }, {
+                value: newValue,
+                duration: 0.5,
+                ease: 'power2.out',
+                onUpdate: function() {
+                    element.textContent = '₦' + Math.round(this.targets()[0].value).toLocaleString();
+                }
+            });
+        }
+
+        // Update summary quantities
+        function updateSummaryQuantities() {
+            const summaryItems = document.querySelectorAll('.autoboy-cart-summary-item');
+            const cartItems = document.querySelectorAll('.autoboy-cart-item');
+
+            summaryItems.forEach((summaryItem, index) => {
+                if (cartItems[index]) {
+                    const qty = parseInt(cartItems[index].querySelector('.autoboy-cart-qty-input').value);
+                    const productInfo = summaryItem.querySelector('.autoboy-cart-summary-product-info p');
+                    const originalText = productInfo.textContent.split(' (x')[0];
+                    
+                    if (qty > 1) {
+                        productInfo.textContent = `${originalText} (x${qty})`;
+                    } else {
+                        productInfo.textContent = originalText;
+                    }
+
+                    // Update summary price
+                    const basePrice = getBasePriceForItem(index);
+                    const totalPrice = basePrice * qty;
+                    const priceEl = summaryItem.querySelector('.autoboy-cart-summary-price');
+                    animateNumber(priceEl, totalPrice);
+                }
+            });
+        }
+
+        // Get base price for item by index
+        function getBasePriceForItem(index) {
+            const basePrices = [2800000, 1850000, 4200000]; // Base prices for each item
+            return basePrices[index] || 0;
+        }
+
+        // Check if cart is empty
+        function checkEmptyCart() {
+            const cartItems = document.querySelectorAll('.autoboy-cart-item');
+            const mainGrid = document.querySelector('.autoboy-cart-main-grid');
+            const emptyState = document.getElementById('emptyCart');
+
+            if (cartItems.length === 0) {
+                gsap.to(mainGrid, {
+                    opacity: 0,
+                    y: -30,
+                    duration: 0.5,
+                    onComplete: () => {
+                        mainGrid.style.display = 'none';
+                        emptyState.style.display = 'block';
+                        gsap.to(emptyState, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.6,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            }
+        }
+
+        // Checkout function
+        function proceedToCheckout() {
+            const btn = document.querySelector('.autoboy-cart-checkout-btn');
+            const originalText = btn.textContent;
+            
+            gsap.to(btn, {
+                scale: 0.95,
+                duration: 0.1,
+                onComplete: () => {
+                    btn.textContent = 'Processing...';
+                    btn.style.background = 'var(--primary-green)';
+                    
+                    // Simulate processing
+                    setTimeout(() => {
+                        btn.textContent = 'Redirecting to Checkout...';
+                        
+                        setTimeout(() => {
+                            // Here you would redirect to actual checkout page
+                            alert('Redirecting to secure checkout...');
+                            btn.textContent = originalText;
+                            btn.style.background = 'var(--gradient-primary)';
+                            gsap.to(btn, { scale: 1, duration: 0.2 });
+                        }, 1500);
+                    }, 1000);
+                }
+            });
+        }
+
+        // Continue shopping function
+        function continueShopping() {
+            // Here you would redirect to shop page
+            alert('Redirecting to shop...');
+        }
+
+        // Theme toggle functionality
+        let isDarkMode = false;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const toggle = document.querySelector('.autoboy-cart-theme-toggle');
+            
+            if (isDarkMode) {
+                body.classList.add('autoboy-cart-dark-mode');
+                toggle.textContent = '☀️';
+            } else {
+                body.classList.remove('autoboy-cart-dark-mode');
+                toggle.textContent = '🌙';
+            }
+            
+            gsap.to(body, {
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        }
+
+        // Quantity control functions
+        function increaseQuantity(id) {
+            const qtyElement = document.getElementById(`qty-${id}`);
+            let currentQty = parseInt(qtyElement.textContent);
+            currentQty++;
+            qtyElement.textContent = currentQty;
+            
+            // Animation for quantity change
+            gsap.to(qtyElement, {
+                scale: 1.3,
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.out'
+            });
+
+            updateCartTotals();
+        }
+
+        function decreaseQuantity(id) {
+            const qtyElement = document.getElementById(`qty-${id}`);
+            let currentQty = parseInt(qtyElement.textContent);
+            
+            if (currentQty > 1) {
+                currentQty--;
+                qtyElement.textContent = currentQty;
+                
+                // Animation for quantity change
+                gsap.to(qtyElement, {
+                    scale: 1.3,
+                    duration: 0.15,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.out'
+                });
+
+                updateCartTotals();
+            }
+        }
+
+        // Update cart totals based on quantities
+        function updateCartTotals() {
+            const qty1 = parseInt(document.getElementById('qty-1').textContent);
+            const qty2 = parseInt(document.getElementById('qty-2').textContent);
+            
+            // Base prices per item
+            const price1 = 1850000; // Samsung Galaxy S24 Ultra per unit
+            const price2 = 4200000; // MacBook Pro per unit
+            
+            // Calculate totals
+            const item1Total = price1 * qty1;
+            const item2Total = price2 * qty2;
+            const subtotal = item1Total + item2Total;
+            const totalItems = qty1 + qty2;
+            const shipping = 50000;
+            const tax = Math.round(subtotal * 0.075);
+            const total = subtotal + shipping + tax;
+            
+            // Update price displays in cart items
+            document.querySelector('#qty-1').closest('.autoboy-cart-summary-product').querySelector('.autoboy-cart-summary-price').textContent = 
+                `₦${item1Total.toLocaleString()}`;
+            document.querySelector('#qty-2').closest('.autoboy-cart-summary-product').querySelector('.autoboy-cart-summary-price').textContent = 
+                `₦${item2Total.toLocaleString()}`;
+            
+            // Update summary totals
+            animateNumber(document.getElementById('subtotal'), subtotal);
+            animateNumber(document.getElementById('tax'), tax);
+            animateNumber(document.getElementById('total'), total);
+            
+            // Update item count
+            document.querySelector('.autoboy-cart-total-row .autoboy-cart-total-label').textContent = 
+                `Subtotal (${totalItems} items)`;
+        }
+
+        // Animate number changes
+        function animateNumber(element, newValue) {
+            const currentValue = parseInt(element.textContent.replace(/[₦,]/g, '')) || 0;
+            
+            if (currentValue !== newValue) {
+                gsap.to({ value: currentValue }, {
+                    value: newValue,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    onUpdate: function() {
+                        element.textContent = '₦' + Math.round(this.targets()[0].value).toLocaleString();
+                    }
+                });
+            }
+        }
+
+        // Enhanced hover effects for cart items
+        document.querySelectorAll('.autoboy-cart-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item.querySelector('.autoboy-cart-floating-glow'), {
+                    scale: 1.5,
+                    opacity: 0.25,
+                    duration: 0.3
+                });
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item.querySelector('.autoboy-cart-floating-glow'), {
+                    scale: 1,
+                    opacity: 0.15,
+                    duration: 0.3
+                });
+            });
+        });
+
+        // Summary card hover effect
+        document.querySelector('.autoboy-cart-summary').addEventListener('mouseenter', () => {
+            gsap.to('.autoboy-cart-summary', {
+                boxShadow: 'var(--shadow-glow)',
+                duration: 0.3
+            });
+        });
+
+        document.querySelector('.autoboy-cart-summary').addEventListener('mouseleave', () => {
+            gsap.to('.autoboy-cart-summary', {
+                boxShadow: 'var(--shadow-light)',
+                duration: 0.3
+            });
+        });
+
+        // Checkout button pulse animation
+        gsap.to('.autoboy-cart-checkout-btn', {
+            boxShadow: '0 0 40px rgba(34, 197, 94, 0.4)',
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power2.inOut'
+        });
+
+        // Initialize particles and scroll effects
+        createParticles();
+
+        // Smooth scrolling enhancement
+        gsap.to(window, {
+            scrollBehavior: 'smooth'
+        });
+
+        // Add entrance animations for summary items
+        gsap.from('.autoboy-cart-summary-item', {
+            scrollTrigger: {
+                trigger: '.autoboy-cart-summary',
+                start: 'top 80%'
+            },
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power2.out'
+        });
+
+        // Add loading animation for total section
+        gsap.from('.autoboy-cart-total-section', {
+            scrollTrigger: {
+                trigger: '.autoboy-cart-total-section',
+                start: 'top 90%'
+            },
+            scale: 0.9,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'back.out(1.7)'
+        });
+
+        // Initialize cart totals
+        updateCartTotals();
+    </script>
+</body>
+</html>
