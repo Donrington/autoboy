@@ -487,9 +487,45 @@
         }
 
         /* Products Table */
+        .autoboy-dash-table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table-container {
+            border-color: var(--border-dark);
+        }
+
+        /* Custom scrollbar styling */
+        .autoboy-dash-table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .autoboy-dash-table-container::-webkit-scrollbar-track {
+            background: var(--bg-light-tertiary);
+            border-radius: 4px;
+        }
+
+        body.autoboy-dash-dark-mode .autoboy-dash-table-container::-webkit-scrollbar-track {
+            background: var(--bg-dark-tertiary);
+        }
+
+        .autoboy-dash-table-container::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 4px;
+        }
+
+        .autoboy-dash-table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-green-dark);
+        }
+
         .autoboy-dash-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 800px; /* Ensures table doesn't shrink too much */
         }
 
         .autoboy-dash-table-header {
@@ -756,6 +792,60 @@
             opacity: 0.1;
         }
 
+        /* Mobile Sidebar Toggle */
+        .autoboy-dash-mobile-toggle {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .autoboy-dash-mobile-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow-intense);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .autoboy-dash-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .autoboy-dash-sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Sidebar */
+        .autoboy-dash-sidebar.mobile-active {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+            transform: translateX(0);
+            opacity: 1;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .autoboy-dash-container {
@@ -763,7 +853,18 @@
             }
             
             .autoboy-dash-sidebar {
-                display: none;
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            }
+
+            .autoboy-dash-mobile-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .autoboy-dash-content {
@@ -789,13 +890,75 @@
                 font-size: 2rem;
             }
             
+            .autoboy-dash-table-container {
+                margin: -1rem;
+                margin-top: 0;
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
+            
             .autoboy-dash-table {
                 font-size: 0.875rem;
+                min-width: 900px; /* Increased min-width for mobile to ensure scrolling */
             }
             
             .autoboy-dash-table th,
             .autoboy-dash-table td {
                 padding: 0.75rem 0.5rem;
+                white-space: nowrap; /* Prevents text wrapping */
+            }
+
+            /* Add scroll indicator shadow */
+            .autoboy-dash-table-container::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 8px; /* Account for scrollbar height */
+                width: 30px;
+                background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2));
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 1;
+            }
+
+            body.autoboy-dash-dark-mode .autoboy-dash-table-container::after {
+                background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3));
+            }
+
+            .autoboy-dash-table-container.scrollable::after {
+                opacity: 1;
+            }
+
+            /* Add subtle scroll hint text */
+            .autoboy-dash-table-container.scrollable::before {
+                content: '← Scroll →';
+                position: absolute;
+                top: 50%;
+                right: 5px;
+                transform: translateY(-50%);
+                font-size: 0.75rem;
+                color: var(--primary-green);
+                background: rgba(255, 255, 255, 0.9);
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                z-index: 2;
+                opacity: 0;
+                animation: scrollHint 2s ease-in-out 1s 1;
+                pointer-events: none;
+            }
+
+            body.autoboy-dash-dark-mode .autoboy-dash-table-container.scrollable::before {
+                background: rgba(26, 26, 26, 0.9);
+                color: var(--primary-green-light);
+            }
+
+            @keyframes scrollHint {
+                0%, 20% { opacity: 0; transform: translateY(-50%) translateX(10px); }
+                30%, 70% { opacity: 1; transform: translateY(-50%) translateX(0); }
+                80%, 100% { opacity: 0; transform: translateY(-50%) translateX(-10px); }
             }
 
             .autoboy-dash-quick-actions {
@@ -806,14 +969,30 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Additional responsive styles for very small screens */
+        @media (max-width: 480px) {
+            .autoboy-dash-table {
+                min-width: 700px; /* Smaller minimum width for very small screens */
+                font-size: 0.8rem;
+            }
+            
+            .autoboy-dash-table th,
+            .autoboy-dash-table td {
+                padding: 0.5rem 0.25rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="autoboy-dash-floating-particles"></div>
     
+    <!-- Mobile Sidebar Overlay -->
+    <div class="autoboy-dash-sidebar-overlay" onclick="closeMobileSidebar()"></div>
+    
     <div class="autoboy-dash-container">
         <!-- Sidebar -->
-        <div class="autoboy-dash-sidebar">
+        <div class="autoboy-dash-sidebar" id="mobileSidebar">
             <div class="autoboy-dash-profile">
                 <div class="autoboy-dash-avatar">
                     <i class="fas fa-user" style="font-size: 2rem; color: var(--text-light-secondary);"></i>
@@ -868,7 +1047,12 @@
         <div class="autoboy-dash-main">
             <!-- Header -->
             <div class="autoboy-dash-header">
-                <h1 class="autoboy-dash-title">Dashboard</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="autoboy-dash-mobile-toggle" onclick="toggleMobileSidebar()" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="autoboy-dash-title">Dashboard</h1>
+                </div>
                 <div class="autoboy-dash-header-actions">
                     <button class="autoboy-dash-theme-toggle" onclick="toggleTheme()" id="themeToggle">
                         <i class="fas fa-moon"></i>
@@ -1009,16 +1193,17 @@
                         </button>
                     </div>
                     <div class="autoboy-dash-section-content">
-                        <table class="autoboy-dash-table">
-                            <thead class="autoboy-dash-table-header">
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+                        <div class="autoboy-dash-table-container">
+                            <table class="autoboy-dash-table">
+                                <thead class="autoboy-dash-table-header">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
                             <tbody>
                                 <tr>
                                     <td>
@@ -1102,61 +1287,1055 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Other sections would be implemented similarly -->
             <div id="orders-content" class="content-section" style="display: none;">
+                <!-- Order Statistics -->
+                <div class="autoboy-dash-stats">
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="8">0</div>
+                        <div class="autoboy-dash-stat-label">Pending Orders</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="15">0</div>
+                        <div class="autoboy-dash-stat-label">In Transit</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="127">0</div>
+                        <div class="autoboy-dash-stat-label">Completed</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="3">0</div>
+                        <div class="autoboy-dash-stat-label">Cancelled</div>
+                    </div>
+                </div>
+
+                <!-- Orders Filter and Search -->
                 <div class="autoboy-dash-section">
                     <div class="autoboy-dash-section-header">
-                        <h2 class="autoboy-dash-section-title">Orders Management</h2>
+                        <h2 class="autoboy-dash-section-title">Order Filters</h2>
                     </div>
                     <div class="autoboy-dash-section-content">
-                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
-                            Orders management interface would be implemented here.
-                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Search Orders</label>
+                                <input type="text" placeholder="Search by order ID, customer name..." 
+                                       style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Status</label>
+                                <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                    <option>All Orders</option>
+                                    <option>Pending</option>
+                                    <option>Processing</option>
+                                    <option>Shipped</option>
+                                    <option>Delivered</option>
+                                    <option>Cancelled</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Date Range</label>
+                                <input type="date" 
+                                       style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Recent Orders</h2>
+                        <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                            <i class="fas fa-download"></i>
+                            Export Orders
+                        </button>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <div class="autoboy-dash-table-container">
+                            <table class="autoboy-dash-table">
+                                <thead class="autoboy-dash-table-header">
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#AB12345</strong></td>
+                                    <td>
+                                        <div>
+                                            <strong>John Doe</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">john.doe@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>iPhone 15 Pro Max</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">256GB, Natural Titanium</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>₦1,350,000</strong></td>
+                                    <td>Dec 12, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-pending">Processing</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Update Status">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Track Order">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#AB12344</strong></td>
+                                    <td>
+                                        <div>
+                                            <strong>Jane Smith</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">jane.smith@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>Samsung Galaxy S24</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">256GB, Titanium Black</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>₦950,000</strong></td>
+                                    <td>Dec 11, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Shipped</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Update Status">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Track Order">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#AB12343</strong></td>
+                                    <td>
+                                        <div>
+                                            <strong>Michael Johnson</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">m.johnson@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-laptop" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>MacBook Pro M3</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">16", 1TB, Space Gray</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>₦4,200,000</strong></td>
+                                    <td>Dec 10, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Delivered</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Update Status">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Generate Invoice">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#AB12342</strong></td>
+                                    <td>
+                                        <div>
+                                            <strong>Sarah Williams</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">sarah.w@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-tablet-alt" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>iPad Pro M2</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">12.9", 256GB, Space Gray</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>₦850,000</strong></td>
+                                    <td>Dec 9, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-pending">Processing</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Update Status">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Track Order">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#AB12341</strong></td>
+                                    <td>
+                                        <div>
+                                            <strong>David Brown</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">d.brown@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="autoboy-dash-product-cell">
+                                            <div class="autoboy-dash-product-image">
+                                                <i class="fas fa-headphones" style="color: var(--primary-green);"></i>
+                                            </div>
+                                            <div>
+                                                <strong>AirPods Pro Max</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Space Gray</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>₦320,000</strong></td>
+                                    <td>Dec 8, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-out-of-stock">Cancelled</span></td>
+                                    <td>
+                                        <button class="autoboy-dash-action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Refund">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+                                        <button class="autoboy-dash-action-btn" title="Contact Customer">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="earnings-content" class="content-section" style="display: none;">
+                <!-- Earnings Stats -->
+                <div class="autoboy-dash-stats">
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-naira-sign"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="2500000" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">Total Earnings</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="875000" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">This Month</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="195000" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">This Week</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="125000" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">Available Balance</div>
+                    </div>
+                </div>
+
+                <!-- Earnings Breakdown -->
+                <div class="autoboy-dash-content">
+                    <!-- Monthly Earnings Chart -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Monthly Earnings</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div class="autoboy-dash-chart-container">
+                                <canvas id="earningsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Payment Methods</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-university"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Bank Transfer</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">GTBank - 0123456789</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="autoboy-dash-status-badge autoboy-dash-status-published">Active</span>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Primary</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Mobile Money</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Opay - 080****5678</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="autoboy-dash-status-badge autoboy-dash-status-pending">Pending</span>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Verification needed</div>
+                                    </div>
+                                </div>
+                                
+                                <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem; align-self: flex-start;">
+                                    <i class="fas fa-plus"></i>
+                                    Add Payment Method
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
                 <div class="autoboy-dash-section">
                     <div class="autoboy-dash-section-header">
-                        <h2 class="autoboy-dash-section-title">Earnings Overview</h2>
+                        <h2 class="autoboy-dash-section-title">Recent Transactions</h2>
+                        <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                            <i class="fas fa-download"></i>
+                            Export Statement
+                        </button>
                     </div>
                     <div class="autoboy-dash-section-content">
-                        <div class="autoboy-dash-sales-stat">
-                            <div class="autoboy-dash-sales-value">₦2,500,000</div>
-                            <div class="autoboy-dash-sales-label">Total Earnings This Month</div>
+                        <div class="autoboy-dash-table-container">
+                            <table class="autoboy-dash-table">
+                                <thead class="autoboy-dash-table-header">
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>TXN-AB12345</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: var(--primary-green); border-radius: 50%;"></div>
+                                            <span>Sale</span>
+                                        </div>
+                                    </td>
+                                    <td>iPhone 15 Pro Max - Order #AB12345</td>
+                                    <td style="color: var(--primary-green); font-weight: bold;">+₦1,350,000</td>
+                                    <td>Dec 12, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TXN-AB12344</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: #f59e0b; border-radius: 50%;"></div>
+                                            <span>Fee</span>
+                                        </div>
+                                    </td>
+                                    <td>Platform Commission - Order #AB12345</td>
+                                    <td style="color: #ef4444; font-weight: bold;">-₦67,500</td>
+                                    <td>Dec 12, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TXN-AB12343</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: var(--primary-green); border-radius: 50%;"></div>
+                                            <span>Sale</span>
+                                        </div>
+                                    </td>
+                                    <td>Samsung Galaxy S24 - Order #AB12344</td>
+                                    <td style="color: var(--primary-green); font-weight: bold;">+₦950,000</td>
+                                    <td>Dec 11, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TXN-AB12342</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                                            <span>Payout</span>
+                                        </div>
+                                    </td>
+                                    <td>Weekly payout to GTBank</td>
+                                    <td style="color: #3b82f6; font-weight: bold;">-₦750,000</td>
+                                    <td>Dec 10, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TXN-AB12341</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: var(--primary-green); border-radius: 50%;"></div>
+                                            <span>Sale</span>
+                                        </div>
+                                    </td>
+                                    <td>MacBook Pro M3 - Order #AB12343</td>
+                                    <td style="color: var(--primary-green); font-weight: bold;">+₦4,200,000</td>
+                                    <td>Dec 10, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-published">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TXN-AB12340</strong></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <div style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></div>
+                                            <span>Refund</span>
+                                        </div>
+                                    </td>
+                                    <td>AirPods Pro Max - Order #AB12341</td>
+                                    <td style="color: #ef4444; font-weight: bold;">-₦320,000</td>
+                                    <td>Dec 9, 2024</td>
+                                    <td><span class="autoboy-dash-status-badge autoboy-dash-status-pending">Processing</span></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payout Settings -->
+                <div class="autoboy-dash-content">
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Payout Settings</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                                <div>
+                                    <h3 style="margin-bottom: 1rem; color: var(--text-light);">Automatic Payouts</h3>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px; margin-bottom: 1rem;">
+                                        <div>
+                                            <strong>Enable Auto-payout</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Automatically transfer earnings to your account</div>
+                                        </div>
+                                        <label style="position: relative; display: inline-block; width: 60px; height: 34px;">
+                                            <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                            <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-green); transition: 0.4s; border-radius: 34px;">
+                                                <span style="position: absolute; content: ''; height: 26px; width: 26px; left: 4px; bottom: 4px; background: white; transition: 0.4s; border-radius: 50%;"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Payout Frequency</label>
+                                        <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                            <option>Weekly</option>
+                                            <option>Bi-weekly</option>
+                                            <option>Monthly</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h3 style="margin-bottom: 1rem; color: var(--text-light);">Minimum Payout</h3>
+                                    <div style="margin-bottom: 1rem;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Minimum Amount</label>
+                                        <input type="number" value="50000" placeholder="Minimum payout amount" 
+                                               style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                    </div>
+                                    
+                                    <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        Request Payout Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Information -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Tax Information</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                                <div style="text-align: center; padding: 1.5rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">₦125,000</div>
+                                    <div style="color: var(--text-light-secondary);">VAT Collected</div>
+                                </div>
+                                <div style="text-align: center; padding: 1.5rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">₦75,000</div>
+                                    <div style="color: var(--text-light-secondary);">Platform Fees</div>
+                                </div>
+                                <div style="text-align: center; padding: 1.5rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">₦2,300,000</div>
+                                    <div style="color: var(--text-light-secondary);">Net Earnings</div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem; margin-right: 1rem;">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Download Tax Report
+                                </button>
+                                <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                                    <i class="fas fa-calculator"></i>
+                                    Tax Calculator
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="analytics-content" class="content-section" style="display: none;">
-                <div class="autoboy-dash-section">
-                    <div class="autoboy-dash-section-header">
-                        <h2 class="autoboy-dash-section-title">Analytics Dashboard</h2>
+                <!-- Analytics Stats -->
+                <div class="autoboy-dash-stats">
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="15.7" data-suffix="%">0%</div>
+                        <div class="autoboy-dash-stat-label">Conversion Rate</div>
                     </div>
-                    <div class="autoboy-dash-section-content">
-                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
-                            Analytics dashboard would be implemented here.
-                        </p>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="3542">0</div>
+                        <div class="autoboy-dash-stat-label">Page Views</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="1247">0</div>
+                        <div class="autoboy-dash-stat-label">Unique Visitors</div>
+                    </div>
+                    
+                    <div class="autoboy-dash-stat-card">
+                        <div class="autoboy-dash-stat-header">
+                            <div class="autoboy-dash-stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="autoboy-dash-stat-value" data-target="845" data-currency="true">₦0</div>
+                        <div class="autoboy-dash-stat-label">Avg Order Value</div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="autoboy-dash-content">
+                    <!-- Sales Performance Chart -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Sales Performance</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div class="autoboy-dash-chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Categories Chart -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Top Categories</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div class="autoboy-dash-chart-container">
+                                <canvas id="categoriesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Analytics -->
+                <div class="autoboy-dash-content">
+                    <!-- Traffic Sources -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Traffic Sources</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Organic Search</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Google, Bing, Yahoo</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>45.2%</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+12.3%</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fab fa-facebook"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Social Media</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Facebook, Instagram, Twitter</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>28.7%</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+8.1%</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-link"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Direct Traffic</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Direct URL entry</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>16.8%</strong>
+                                        <div style="font-size: 0.875rem; color: #ef4444;">-3.2%</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Email Marketing</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Newsletter campaigns</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>9.3%</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+2.7%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Performing Products -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Top Performing Products</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div class="autoboy-dash-product-cell">
+                                        <div class="autoboy-dash-product-image">
+                                            <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                        </div>
+                                        <div>
+                                            <strong>iPhone 15 Pro Max</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">45 sales this month</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>₦60,750,000</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+25.3% vs last month</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div class="autoboy-dash-product-cell">
+                                        <div class="autoboy-dash-product-image">
+                                            <i class="fas fa-laptop" style="color: var(--primary-green);"></i>
+                                        </div>
+                                        <div>
+                                            <strong>MacBook Pro M3</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">28 sales this month</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>₦117,600,000</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+18.7% vs last month</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div class="autoboy-dash-product-cell">
+                                        <div class="autoboy-dash-product-image">
+                                            <i class="fas fa-mobile-alt" style="color: var(--primary-green);"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Samsung Galaxy S24</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">32 sales this month</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>₦30,400,000</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+15.2% vs last month</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div class="autoboy-dash-product-cell">
+                                        <div class="autoboy-dash-product-image">
+                                            <i class="fas fa-tablet-alt" style="color: var(--primary-green);"></i>
+                                        </div>
+                                        <div>
+                                            <strong>iPad Pro M2</strong>
+                                            <div style="font-size: 0.875rem; color: var(--text-light-secondary);">22 sales this month</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>₦18,700,000</strong>
+                                        <div style="font-size: 0.875rem; color: var(--primary-green);">+12.8% vs last month</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="settings-content" class="content-section" style="display: none;">
+                <!-- Profile Settings -->
                 <div class="autoboy-dash-section">
                     <div class="autoboy-dash-section-header">
-                        <h2 class="autoboy-dash-section-title">Account Settings</h2>
+                        <h2 class="autoboy-dash-section-title">Profile Information</h2>
                     </div>
                     <div class="autoboy-dash-section-content">
-                        <p style="text-align: center; color: var(--text-light-secondary); padding: 3rem;">
-                            Settings interface would be implemented here.
-                        </p>
+                        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;">
+                            <!-- Profile Image Section -->
+                            <div style="text-align: center;">
+                                <div class="autoboy-dash-avatar" style="width: 120px; height: 120px; margin: 0 auto 1rem;">
+                                    <i class="fas fa-user" style="font-size: 3rem; color: var(--text-light-secondary);"></i>
+                                </div>
+                                <button class="autoboy-dash-quick-action" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                                    <i class="fas fa-camera"></i>
+                                    Change Photo
+                                </button>
+                            </div>
+                            
+                            <!-- Profile Form -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">First Name</label>
+                                    <input type="text" value="John" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Last Name</label>
+                                    <input type="text" value="Doe" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div style="grid-column: 1 / -1;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Email Address</label>
+                                    <input type="email" value="john.doe@seller.com" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Phone Number</label>
+                                    <input type="tel" value="+234 80 1234 5678" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Store Category</label>
+                                    <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                        <option>Electronics</option>
+                                        <option>Fashion</option>
+                                        <option>Home & Garden</option>
+                                        <option>Books</option>
+                                        <option>Sports</option>
+                                    </select>
+                                </div>
+                                <div style="grid-column: 1 / -1;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Store Description</label>
+                                    <textarea rows="3" placeholder="Tell customers about your store..." 
+                                              style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light); resize: vertical;">Premium electronics store specializing in mobile devices, laptops, and accessories. We offer authentic products with warranty and excellent customer service.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; text-align: right;">
+                            <button class="autoboy-dash-quick-action" style="padding: 0.75rem 2rem; font-size: 0.875rem; margin-left: 1rem;">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Settings -->
+                <div class="autoboy-dash-content">
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Business Information</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Business Name</label>
+                                    <input type="text" value="AutoBoy Electronics" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Tax ID / BVN</label>
+                                    <input type="text" value="12345678901" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div style="grid-column: 1 / -1;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Business Address</label>
+                                    <input type="text" value="123 Electronics Plaza, Victoria Island, Lagos" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">City</label>
+                                    <input type="text" value="Lagos" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">State</label>
+                                    <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                        <option>Lagos</option>
+                                        <option>Abuja</option>
+                                        <option>Rivers</option>
+                                        <option>Kano</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="autoboy-dash-section">
+                        <div class="autoboy-dash-section-header">
+                            <h2 class="autoboy-dash-section-title">Notification Settings</h2>
+                        </div>
+                        <div class="autoboy-dash-section-content">
+                            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div>
+                                        <strong>Email Notifications</strong>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Receive order updates and sales reports via email</div>
+                                    </div>
+                                    <label style="position: relative; display: inline-block; width: 60px; height: 34px;">
+                                        <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-green); transition: 0.4s; border-radius: 34px;">
+                                            <span style="position: absolute; content: ''; height: 26px; width: 26px; left: 4px; bottom: 4px; background: white; transition: 0.4s; border-radius: 50%;"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div>
+                                        <strong>SMS Notifications</strong>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Get instant SMS alerts for new orders</div>
+                                    </div>
+                                    <label style="position: relative; display: inline-block; width: 60px; height: 34px;">
+                                        <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                                        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; transition: 0.4s; border-radius: 34px;">
+                                            <span style="position: absolute; content: ''; height: 26px; width: 26px; left: 4px; bottom: 4px; background: white; transition: 0.4s; border-radius: 50%;"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                    <div>
+                                        <strong>Marketing Emails</strong>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Receive tips, promotions, and seller insights</div>
+                                    </div>
+                                    <label style="position: relative; display: inline-block; width: 60px; height: 34px;">
+                                        <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-green); transition: 0.4s; border-radius: 34px;">
+                                            <span style="position: absolute; content: ''; height: 26px; width: 26px; left: 4px; bottom: 4px; background: white; transition: 0.4s; border-radius: 50%;"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="autoboy-dash-section">
+                    <div class="autoboy-dash-section-header">
+                        <h2 class="autoboy-dash-section-title">Security Settings</h2>
+                    </div>
+                    <div class="autoboy-dash-section-content">
+                        <div style="display: flex; flex-direction: column; gap: 2rem;">
+                            <!-- Password Change -->
+                            <div>
+                                <h3 style="margin-bottom: 1rem; color: var(--text-light);">Change Password</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px;">
+                                    <div style="grid-column: 1 / -1;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Current Password</label>
+                                        <input type="password" placeholder="Enter current password" 
+                                               style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">New Password</label>
+                                        <input type="password" placeholder="Enter new password" 
+                                               style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light);">Confirm Password</label>
+                                        <input type="password" placeholder="Confirm new password" 
+                                               style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg-light); color: var(--text-light);">
+                                    </div>
+                                    <div style="grid-column: 1 / -1;">
+                                        <button class="autoboy-dash-quick-action" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                                            <i class="fas fa-lock"></i>
+                                            Update Password
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Two-Factor Authentication -->
+                            <div>
+                                <h3 style="margin-bottom: 1rem; color: var(--text-light);">Two-Factor Authentication</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: var(--bg-light-tertiary); border-radius: 12px; max-width: 600px;">
+                                    <div>
+                                        <strong>Enable 2FA</strong>
+                                        <div style="font-size: 0.875rem; color: var(--text-light-secondary); margin-top: 0.25rem;">Add an extra layer of security to your account</div>
+                                    </div>
+                                    <button class="autoboy-dash-quick-action" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                                        <i class="fas fa-shield-alt"></i>
+                                        Enable 2FA
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Active Sessions -->
+                            <div>
+                                <h3 style="margin-bottom: 1rem; color: var(--text-light);">Active Sessions</h3>
+                                <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                                <i class="fas fa-laptop"></i>
+                                            </div>
+                                            <div>
+                                                <strong>Windows PC - Chrome</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Lagos, Nigeria • Current session</div>
+                                            </div>
+                                        </div>
+                                        <span class="autoboy-dash-status-badge autoboy-dash-status-published">Active</span>
+                                    </div>
+                                    
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light-tertiary); border-radius: 12px;">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                                <i class="fas fa-mobile-alt"></i>
+                                            </div>
+                                            <div>
+                                                <strong>iPhone - Safari</strong>
+                                                <div style="font-size: 0.875rem; color: var(--text-light-secondary);">Lagos, Nigeria • 2 hours ago</div>
+                                            </div>
+                                        </div>
+                                        <button class="autoboy-dash-action-btn" title="Revoke Session">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1251,8 +2430,9 @@
             const counters = document.querySelectorAll('.autoboy-dash-stat-value[data-target]');
             
             counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
+                const target = parseFloat(counter.getAttribute('data-target'));
                 const isCurrency = counter.getAttribute('data-currency');
+                const suffix = counter.getAttribute('data-suffix') || '';
                 const prefix = isCurrency ? '₦' : '';
                 
                 gsap.to({ value: 0 }, {
@@ -1261,8 +2441,13 @@
                     delay: 1.2,
                     ease: 'power2.out',
                     onUpdate: function() {
-                        const currentValue = Math.round(this.targets()[0].value);
-                        counter.textContent = prefix + currentValue.toLocaleString();
+                        let currentValue = this.targets()[0].value;
+                        if (suffix === '%') {
+                            currentValue = currentValue.toFixed(1);
+                        } else {
+                            currentValue = Math.round(currentValue);
+                        }
+                        counter.textContent = prefix + currentValue.toLocaleString() + suffix;
                     }
                 });
             });
@@ -1322,62 +2507,223 @@
         }
 
         // Chart Initialization
-        function initChart() {
-            const ctx = document.getElementById('salesChart');
-            if (!ctx) return;
+        let chartInstances = {};
 
-            const chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                    datasets: [{
-                        label: 'Sales (₦)',
-                        data: [300000, 450000, 320000, 600000, 750000, 520000, 890000],
-                        borderColor: '#22C55E',
-                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: '#22C55E',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
+        function initChart() {
+            // Main Sales Chart
+            const ctx = document.getElementById('salesChart');
+            if (ctx) {
+                chartInstances.salesChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        datasets: [{
+                            label: 'Sales (₦)',
+                            data: [300000, 450000, 320000, 600000, 750000, 520000, 890000],
+                            borderColor: '#22C55E',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#22C55E',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }]
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₦' + value.toLocaleString();
+                                    }
+                                }
                             },
-                            ticks: {
-                                callback: function(value) {
-                                    return '₦' + value.toLocaleString();
+                            x: {
+                                grid: {
+                                    display: false
                                 }
                             }
                         },
-                        x: {
-                            grid: {
-                                display: false
+                        elements: {
+                            point: {
+                                hoverBackgroundColor: '#22C55E'
                             }
                         }
+                    }
+                });
+            }
+
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart');
+            if (performanceCtx) {
+                chartInstances.performanceChart = new Chart(performanceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Daily Sales',
+                            data: [120000, 190000, 300000, 500000, 200000, 300000, 450000],
+                            backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                            borderColor: '#22C55E',
+                            borderWidth: 1,
+                            borderRadius: 8
+                        }]
                     },
-                    elements: {
-                        point: {
-                            hoverBackgroundColor: '#22C55E'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₦' + (value / 1000) + 'K';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+
+            // Categories Chart
+            const categoriesCtx = document.getElementById('categoriesChart');
+            if (categoriesCtx) {
+                chartInstances.categoriesChart = new Chart(categoriesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Smartphones', 'Laptops', 'Tablets', 'Accessories', 'Audio'],
+                        datasets: [{
+                            data: [45, 25, 15, 10, 5],
+                            backgroundColor: [
+                                '#22C55E',
+                                '#3B82F6', 
+                                '#F59E0B',
+                                '#8B5CF6',
+                                '#EF4444'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    usePointStyle: true
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            // Earnings Chart
+            const earningsCtx = document.getElementById('earningsChart');
+            if (earningsCtx) {
+                chartInstances.earningsChart = new Chart(earningsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'Monthly Earnings',
+                            data: [180000, 220000, 350000, 420000, 500000, 380000, 650000, 720000, 580000, 890000, 950000, 875000],
+                            borderColor: '#22C55E',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#22C55E',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }, {
+                            label: 'Platform Fees',
+                            data: [9000, 11000, 17500, 21000, 25000, 19000, 32500, 36000, 29000, 44500, 47500, 43750],
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#ef4444',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₦' + (value / 1000) + 'K';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        elements: {
+                            point: {
+                                hoverBackgroundColor: '#22C55E'
+                            }
+                        }
+                    }
+                });
+            }
 
             // Update chart colors for dark mode
             function updateChartTheme() {
@@ -1385,10 +2731,21 @@
                 const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
                 const textColor = isDark ? '#9CA3AF' : '#6B7280';
                 
-                chartInstance.options.scales.y.grid.color = gridColor;
-                chartInstance.options.scales.y.ticks.color = textColor;
-                chartInstance.options.scales.x.ticks.color = textColor;
-                chartInstance.update();
+                Object.values(chartInstances).forEach(chart => {
+                    if (chart.options.scales) {
+                        if (chart.options.scales.y) {
+                            if (chart.options.scales.y.grid) chart.options.scales.y.grid.color = gridColor;
+                            if (chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = textColor;
+                        }
+                        if (chart.options.scales.x) {
+                            if (chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = textColor;
+                        }
+                    }
+                    if (chart.options.plugins && chart.options.plugins.legend) {
+                        chart.options.plugins.legend.labels.color = textColor;
+                    }
+                    chart.update();
+                });
             }
 
             // Listen for theme changes
@@ -1497,10 +2854,138 @@
             });
         }
 
-        // Responsive Mobile Menu (for future mobile sidebar)
-        function setupMobileMenu() {
-            // Mobile menu functionality would be implemented here
-            // For now, the sidebar is hidden on mobile via CSS
+        // Mobile Sidebar Management
+        let isMobileSidebarOpen = false;
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.querySelector('.autoboy-dash-sidebar-overlay');
+            const toggleBtn = document.getElementById('mobileToggle');
+            
+            isMobileSidebarOpen = !isMobileSidebarOpen;
+            
+            if (isMobileSidebarOpen) {
+                sidebar.classList.add('mobile-active');
+                overlay.classList.add('active');
+                toggleBtn.querySelector('i').className = 'fas fa-times';
+                
+                // Prevent body scrolling when sidebar is open
+                document.body.style.overflow = 'hidden';
+            } else {
+                closeMobileSidebar();
+            }
+        }
+
+        function closeMobileSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.querySelector('.autoboy-dash-sidebar-overlay');
+            const toggleBtn = document.getElementById('mobileToggle');
+            
+            isMobileSidebarOpen = false;
+            sidebar.classList.remove('mobile-active');
+            overlay.classList.remove('active');
+            toggleBtn.querySelector('i').className = 'fas fa-bars';
+            
+            // Re-enable body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close sidebar when clicking nav links on mobile
+        function setupMobileNavigation() {
+            const navLinks = document.querySelectorAll('.autoboy-dash-nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 1024 && isMobileSidebarOpen) {
+                        closeMobileSidebar();
+                    }
+                });
+            });
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (window.innerWidth > 1024 && isMobileSidebarOpen) {
+                closeMobileSidebar();
+            }
+            // Check table scroll status on resize
+            checkTableScroll();
+        }
+
+        // Table Scroll Management
+        function checkTableScroll() {
+            const tableContainers = document.querySelectorAll('.autoboy-dash-table-container');
+            
+            tableContainers.forEach(container => {
+                const table = container.querySelector('.autoboy-dash-table');
+                if (table) {
+                    // Check if table is scrollable horizontally
+                    const isScrollable = container.scrollWidth > container.clientWidth;
+                    
+                    if (isScrollable) {
+                        container.classList.add('scrollable');
+                        
+                        // Add scroll event listener to handle shadow visibility
+                        container.addEventListener('scroll', function() {
+                            const scrollLeft = this.scrollLeft;
+                            const maxScroll = this.scrollWidth - this.clientWidth;
+                            
+                            // Show/hide scroll indicator based on scroll position
+                            if (scrollLeft >= maxScroll - 10) {
+                                this.classList.remove('scrollable');
+                            } else {
+                                this.classList.add('scrollable');
+                            }
+                        });
+                        
+                        // Add touch scroll support for mobile
+                        let isScrolling = false;
+                        container.addEventListener('touchstart', function() {
+                            isScrolling = true;
+                        });
+                        
+                        container.addEventListener('touchend', function() {
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, 100);
+                        });
+                        
+                    } else {
+                        container.classList.remove('scrollable');
+                    }
+                }
+            });
+        }
+
+        // Setup table scroll indicators
+        function setupTableScroll() {
+            // Initial check
+            setTimeout(() => {
+                checkTableScroll();
+            }, 100);
+            
+            // Check when content sections are shown
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const target = mutation.target;
+                        if (target.classList.contains('content-section') && 
+                            target.style.display !== 'none') {
+                            setTimeout(() => {
+                                checkTableScroll();
+                            }, 300);
+                        }
+                    }
+                });
+            });
+            
+            // Observe all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section, { 
+                    attributes: true, 
+                    attributeFilter: ['style'] 
+                });
+            });
         }
 
         // Initialize Dashboard
@@ -1508,9 +2993,11 @@
             loadTheme();
             initAnimations();
             initNavigation();
+            setupMobileNavigation();
             animateCounters();
             setupActionButtons();
             setupHoverEffects();
+            setupTableScroll();
             createFloatingParticles();
             
             // Initialize chart after a delay to ensure DOM is ready
@@ -1523,9 +3010,7 @@
         document.addEventListener('DOMContentLoaded', initDashboard);
 
         // Handle window resize
-        window.addEventListener('resize', () => {
-            // Recalculate animations and layouts if needed
-        });
+        window.addEventListener('resize', handleResize);
 
         // Error handling for missing elements
         window.addEventListener('error', (e) => {
